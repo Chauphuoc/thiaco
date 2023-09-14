@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 public class LocationRegionDTO {
     private Long id;
@@ -23,17 +24,6 @@ public class LocationRegionDTO {
     private String address;
     private Long employeeId;
 
-    public LocationRegionDTO(Long id,String provinceId,String provinceName,String districtId,String districtName,String wardId,String wardName, String address, Long employeeId) {
-        this.id = id;
-        this.provinceId = provinceId;
-        this.provinceName = provinceName;
-        this.districtId = districtId;
-        this.districtName = districtName;
-        this.wardId = wardId;
-        this.wardName = wardName;
-        this.address = address;
-        this.employeeId = employeeId;
-    }
     public LocationRegion toLocationRegion() {
         return new LocationRegion()
                 .setId(id)

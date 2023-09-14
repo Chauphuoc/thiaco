@@ -25,9 +25,10 @@ public class Salary extends BaseEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "nhanVien_id",referencedColumnName = "id",nullable = false)
-    private Employee employee;
+
+//    @OneToOne
+//    @JoinColumn(name = "nhanVien_id",referencedColumnName = "id",nullable = true)
+//    private Employee employee;
     @Column(name = "namTinhLuong",nullable = false)
     private int yearOfWork;
     @Column(name = "tienLuong",precision = 10,scale = 0,nullable = false)

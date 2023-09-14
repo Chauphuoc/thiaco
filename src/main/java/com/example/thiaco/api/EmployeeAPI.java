@@ -1,48 +1,1 @@
-package com.example.thiaco.api;
-
-import com.example.thiaco.dto.EmployeeDTO;
-import com.example.thiaco.exception.DataInputException;
-import com.example.thiaco.model.employee.Employee;
-import com.example.thiaco.service.employee.IEmployeeService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-@RestController
-@AllArgsConstructor
-@RequestMapping("/api/employees")
-public class EmployeeAPI {
-    @Autowired
-    private IEmployeeService employeeService;
-    @GetMapping
-    public ResponseEntity<?> GetAllEmployeesDeleteFalse ()
-    {
-        List<Employee> employees = employeeService.findEmployeesByDeletedIsFalse();
-        List<EmployeeDTO> employeeDTOList = employees.stream().map(employee -> employee.toEmployeeDTO()).collect(Collectors.toList());
-        return new ResponseEntity<>(employeeDTOList,HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findEmployeeById(@PathVariable Long id) {
-        if (id == null) {
-            throw new DataInputException("Employee does not exist");
-        }
-        Optional<Employee> employeeOptional = employeeService.findById(id);
-        if (!employeeOptional.isPresent()) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        }
-        Employee employee = employeeOptional.get();
-        EmployeeDTO employeeDTO = employee.toEmployeeDTO();
-        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
-    }
-//    @PostMapping()
-//    public ResponseEntity<?> createEmployee (@RequestBody @Validated)
-}
-
+package com.example.thiaco.api;import com.example.thiaco.dto.EmployeeDTO;import com.example.thiaco.dto.EmployeeReqDTO;import com.example.thiaco.dto.LocationRegionDTO;import com.example.thiaco.dto.SalaryDTO;import com.example.thiaco.exception.DataInputException;import com.example.thiaco.model.LocationRegion.LocationRegion;import com.example.thiaco.model.department.Department;import com.example.thiaco.model.employee.Employee;import com.example.thiaco.model.salary.Salary;import com.example.thiaco.service.department.IDepartmentService;import com.example.thiaco.service.employee.IEmployeeService;import com.example.thiaco.service.locationRegion.ILocationRegionService;import com.example.thiaco.service.salary.ISalaryService;import com.example.thiaco.utils.AppUtils;import lombok.AllArgsConstructor;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.http.HttpStatus;import org.springframework.http.ResponseEntity;import org.springframework.validation.BindingResult;import org.springframework.validation.annotation.Validated;import org.springframework.web.bind.annotation.*;import java.util.Date;import java.util.List;import java.util.Optional;import java.util.stream.Collectors;@RestController@AllArgsConstructor@RequestMapping("/api/employees")public class EmployeeAPI {    @Autowired    private IEmployeeService employeeService;    @Autowired    private IDepartmentService departmentService;    @Autowired    private ISalaryService salaryService;    @Autowired    private ILocationRegionService locationRegionService;    @Autowired    private AppUtils appUtils;    @GetMapping    public ResponseEntity<?> GetAllEmployeesDeleteFalse ()    {        List<Employee> employees = employeeService.findEmployeesByDeletedIsFalse();        List<EmployeeDTO> employeeDTOList = employees.stream().map(employee -> employee.toEmployeeDTO()).collect(Collectors.toList());        return new ResponseEntity<>(employeeDTOList,HttpStatus.OK);    }    @GetMapping("/{id}")    public ResponseEntity<?> findEmployeeById(@PathVariable Long id) {        if (id == null) {            throw new DataInputException("Employee does not exist");        }        Optional<Employee> employeeOptional = employeeService.findById(id);        if (!employeeOptional.isPresent()) {            return new ResponseEntity<>(null, HttpStatus.OK);        }        Employee employee = employeeOptional.get();        EmployeeDTO employeeDTO = employee.toEmployeeDTO();        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);    }    @PostMapping()    public ResponseEntity<?> createEmployee(@RequestBody EmployeeReqDTO employeeReqDTO, BindingResult bindingResult) {        new EmployeeReqDTO().validate(employeeReqDTO, bindingResult);        if (bindingResult.hasErrors()) {            return appUtils.mapErrorToResponse(bindingResult);        }        Employee employee = create(employeeReqDTO);        EmployeeDTO employeeDTO = employee.toEmployeeDTO();        return new ResponseEntity<>(employeeDTO,HttpStatus.OK);    }    public Employee create(EmployeeReqDTO employeeReqDTO) {        Employee employee = new Employee();        Department department = new Department();        Long departmentId = employeeReqDTO.getDepartmentDTO().getId();        Optional<Department> departmentOptional = departmentService.findById(departmentId);        if (!departmentOptional.isPresent()) {            throw new DataInputException("Department is not found");        }        department = departmentOptional.get();        Long employee_id = employeeReqDTO.getEmployee_id();        String fullName = employeeReqDTO.getFullName();        String lastName = employeeReqDTO.getLastName();        Date dateOfBirth = employeeReqDTO.getDateOfBirth();        int age = employeeReqDTO.getAge();        String gender = employeeReqDTO.getGender();        String placeOfBirth = employeeReqDTO.getPlaceOfBirth();        String qualification = employeeReqDTO.getQualification();        String educationLevel = employeeReqDTO.getEducationLevel();        String culturalLevel = employeeReqDTO.getCulturalLevel();        String homeTown = employeeReqDTO.getHomeTown();        String accommodation = employeeReqDTO.getAccommodation();        String maritalStatus = employeeReqDTO.getMaritalStatus();        String position = employeeReqDTO.getPosition();        Date joiningDay = employeeReqDTO.getJoiningday();        Date employeeeContractDay = employeeReqDTO.getEmploymentContractDate();        int socialInsuranceMonth = employeeReqDTO.getSocialInsuranceMonth();        String relationShip = employeeReqDTO.getRelationShip();        String socialInsuranceNumber = employeeReqDTO.getSocialInsuranceNumber();        String phoneNumber = employeeReqDTO.getPhoneNumber();        String idCardNumber = employeeReqDTO.getIdCardNumber();        String citizenCardNumber = employeeReqDTO.getCitizenCardNumber();        Date dateOfIssue = employeeReqDTO.getDateOfIssue();        String placeOfIssue = employeeReqDTO.getPlaceOfIssue();        employee.setEmployee_id(employee_id);        employee.setFullName(fullName);        employee.setLastName(lastName);        employee.setDateOfBirth(dateOfBirth);        employee.setAge(age);        employee.setGender(gender);        employee.setPlaceOfBirth(placeOfBirth);        employee.setQualification(qualification);        employee.setEducationLevel(educationLevel);        employee.setCulturalLevel(culturalLevel);        employee.setHomeTown(homeTown);        employee.setAccommodation(accommodation);        employee.setMaritalStatus(maritalStatus);        employee.setPosition(position);        employee.setJoiningday(joiningDay);        employee.setEmploymentContractDate(employeeeContractDay);        employee.setSocialInsuranceMonth(socialInsuranceMonth);        employee.setRelationShip(relationShip);        employee.setSocialInsuranceNumber(socialInsuranceNumber);        employee.setPhoneNumber(phoneNumber);        employee.setIdCardNumber(idCardNumber);        employee.setCitizenCardNumber(citizenCardNumber);        employee.setDateOfIssue(dateOfIssue);        employee.setPlaceOfIssue(placeOfIssue);        employee.setDepartment(department);        Salary salary = new Salary();        salary.setYearOfWork(employeeReqDTO.getSalaryDTO().getYearOfWork());        salary.setSalaryAmount(employeeReqDTO.getSalaryDTO().getSalaryAmount());        salary.setSalaryCoEfficient(employeeReqDTO.getSalaryDTO().getSalaryCoEfficient());        salary.setOtherDetails(employeeReqDTO.getSalaryDTO().getOtherDetails());        salary.setBasicSalary(employeeReqDTO.getSalaryDTO().getBasicSalary());        salaryService.save(salary);        employee.setSalary(salary);        LocationRegion locationRegion = employeeReqDTO.getLocationRegionDTO().toLocationRegion();        employeeService.save(employee);        Long manv = employeeReqDTO.getEmployee_id();        Employee newEmployee = employeeService.findEmployeeByEmployeeId(manv);        locationRegion.setEmployee(newEmployee);        locationRegionService.save(locationRegion);        LocationRegion newLocationRegion = locationRegionService.findLocationRegionByEmployee(newEmployee);        newEmployee.setLocationRegion(newLocationRegion);        return newEmployee;    }}

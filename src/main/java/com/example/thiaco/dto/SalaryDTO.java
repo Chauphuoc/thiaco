@@ -24,5 +24,14 @@ public class SalaryDTO {
     private String otherDetails;
     private BigDecimal basicSalary;
 
-
+    public Salary toSalary() {
+        return new Salary()
+                .setId(id)
+                .setYearOfWork(yearOfWork)
+                .setSalaryAmount(salaryAmount)
+                .setSalaryCoEfficient(salaryCoEfficient)
+                .setOtherDetails(otherDetails)
+                .setBasicSalary(basicSalary)
+                ;
+    }
 }

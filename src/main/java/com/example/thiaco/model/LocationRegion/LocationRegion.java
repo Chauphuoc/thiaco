@@ -37,7 +37,7 @@ public class LocationRegion {
     private String address;
 
     @OneToOne
-    @JoinColumn(name = "nhanVien_id",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "nhanVien_id",referencedColumnName = "id",nullable = true)
     private Employee employee;
 
     public LocationRegionDTO toLocationRegionDTO ()

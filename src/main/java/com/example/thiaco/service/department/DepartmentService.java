@@ -21,22 +21,28 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public List<Employee> findAll() {
-        return null;
-    }
-
-    @Override
-    public Optional<Employee> findById(Long id) {
+    public Optional<Department> findById() {
         return Optional.empty();
     }
 
+
     @Override
-    public Employee save(Employee employee) {
+    public List<Department> findAll() {
         return null;
     }
 
     @Override
-    public void delete(Employee employee) {
+    public Optional<Department> findById(Long id) {
+        return departmentRepository.findById(id);
+    }
+
+    @Override
+    public Department save(Department department) {
+        return null;
+    }
+
+    @Override
+    public void delete(Department department) {
 
     }
 

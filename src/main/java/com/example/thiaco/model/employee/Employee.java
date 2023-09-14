@@ -29,9 +29,9 @@ public class Employee extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "MaNV", nullable = false)
+    @Column(name = "manv", nullable = false)
     private Long employee_id;
-    @Column(name = "hoVaTen", nullable = false)
+    @Column(name = "hovanten", nullable = false)
     private String fullName;
     @Column(name = "ten", nullable = false)
     private String lastName;
@@ -43,47 +43,47 @@ public class Employee extends BaseEntity {
     private int age;
     @Column(name = "noisinh",nullable = true)
     private String placeOfBirth;
-    @Column(name = "trinhDoChuyenMon")
+    @Column(name = "trinhdochuyenmon")
     private String qualification;
-    @Column(name = "trinhDoHocVan")
+    @Column(name = "trinhdohocvan")
     private String educationLevel;
-    @Column(name = "trinhDoVanHoa")
+    @Column(name = "trinhdovanhoa")
     private String culturalLevel;
     @Column(name = "quequan")
     private String homeTown;
-    @Column(name = "ChoO")
+    @Column(name = "choo")
     private String accommodation;
-    @Column(name = "tinhTrangHonNhan")
+    @Column(name = "tinhtranghonnhan")
     private String maritalStatus;
-    @Column(name = "chucVu")
+    @Column(name = "chucvu")
     private String position;
-    @Column(name = "ngayVaoCongTy")
+    @Column(name = "ngayvaocongty")
     private Date joiningday;
-    @Column(name = "ngayKyHD")
+    @Column(name = "ngaykyhd")
     private Date employmentContractDate;
-    @Column(name = "thangDongBHXH")
+    @Column(name = "thangdongbhxh")
     private int SocialInsuranceMonth;
-    @Column(name = "moiQuanHe")
+    @Column(name = "moiquanhe")
     private String relationShip;
-    @Column(name = "soSoBHXH")
+    @Column(name = "so_sobhxh")
     private String socialInsuranceNumber;
-    @Column(name = "soDT")
+    @Column(name = "dienthoai")
     private String phoneNumber;
-    @Column(name = "soCMND",nullable = true)
+    @Column(name = "socmnd",nullable = true)
     private String idCardNumber;
-    @Column(name = "soCCCD",nullable = false)
+    @Column(name = "socccd",nullable = false)
     private String citizenCardNumber;
-    @Column(name = "ngayCap",nullable = false)
+    @Column(name = "ngaycap",nullable = false)
     private Date dateOfIssue;
-    @Column(name = "noiCap",nullable = false)
+    @Column(name = "noicap",nullable = false)
     private String placeOfIssue;
-    @OneToOne
-    @JoinColumn(name = "phongBan_id",referencedColumnName = "id",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "phongban_id",referencedColumnName = "id",nullable = false)
     private Department department;
     @OneToOne(mappedBy = "employee")
     private LocationRegion locationRegion;
     @OneToOne
-    @JoinColumn(name = "bangluong_id",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "bangluong_id",referencedColumnName = "id",nullable = true)
     private Salary salary;
 
     public EmployeeDTO toEmployeeDTO() {

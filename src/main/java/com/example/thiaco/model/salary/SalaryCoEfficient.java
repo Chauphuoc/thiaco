@@ -25,7 +25,7 @@ public class SalaryCoEfficient {
     private Year year;
     @Column(name = "heSoLuong",nullable = false)
     private BigDecimal salaryEfficientAmount;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "phongBan_id",referencedColumnName = "id",nullable = false)
     private Department department;
 }

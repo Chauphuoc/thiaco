@@ -5,7 +5,10 @@ import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.service.IGeneralService;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface IDepartmentService extends IGeneralService<Employee,Long> {
+public interface IDepartmentService extends IGeneralService<Department,Long> {
     public List<Department> findAllByDeletedIsFalse();
+
+    public Optional<Department> findById();
 }

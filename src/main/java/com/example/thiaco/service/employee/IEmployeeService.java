@@ -1,5 +1,6 @@
 package com.example.thiaco.service.employee;
 
+import com.example.thiaco.dto.EmployeeReqDTO;
 import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.service.IGeneralService;
 
@@ -10,4 +11,7 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     List<Employee> findEmployeesByDeletedIsFalse();
 
      Employee findEmployeeById(Long id);
+
+
+    Employee findEmployeeByEmployeeId(Long employeeId);
 }

@@ -3,6 +3,7 @@ package com.example.thiaco.model.department;
 import com.example.thiaco.dto.DepartmentDTO;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.employee.Employee;
+import com.example.thiaco.model.salary.SalaryCoEfficient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -25,6 +28,8 @@ public class Department extends BaseEntity {
 
     @Column(name = "tenPhongban", nullable = false)
     private String departmentName;
+    @OneToMany(mappedBy = "department")
+    private List<SalaryCoEfficient> salaryCoEfficient;
     public DepartmentDTO toDepartmentDTO() {
         return new DepartmentDTO()
                 .setId(id)

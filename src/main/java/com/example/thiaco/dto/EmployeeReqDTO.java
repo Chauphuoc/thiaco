@@ -18,7 +18,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class EmployeeReqDTO implements Validator {
     private Long id;
-    private String firstName;
+    private Long employee_id;
+    private String fullName;
     private String lastName;
     private Date dateOfBirth;
     private String gender;
@@ -33,12 +34,17 @@ public class EmployeeReqDTO implements Validator {
     private String position;
     private Date joiningday;
     private Date EmploymentContractDate;
-    private Month SocialInsuranceMonth;
+    private int SocialInsuranceMonth;
     private String relationShip;
     private String SocialInsuranceNumber;
     private String phoneNumber;
+    private String idCardNumber;
+    private String citizenCardNumber;
+    private Date dateOfIssue;
+    private String placeOfIssue;
     private DepartmentDTO departmentDTO;
     private LocationRegionDTO locationRegionDTO;
+    private SalaryDTO salaryDTO;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -48,10 +54,13 @@ public class EmployeeReqDTO implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         EmployeeReqDTO employeeReqDTO = (EmployeeReqDTO) target;
-        String firstName = employeeReqDTO.getFirstName();
+        String firstName = employeeReqDTO.getFullName();
         String lastName = employeeReqDTO.getLastName();
         String phoneNumber = employeeReqDTO.getPhoneNumber();
         String address = employeeReqDTO.getLocationRegionDTO().getAddress();
+        Long employeeId = employeeReqDTO.getEmployee_id();
+        String cccd = employeeReqDTO.getCitizenCardNumber();
+        // co the dung @Notnull
         if (firstName.isEmpty()) {
             errors.reject("fullName.null", "Firstname must be not null");
         }
@@ -59,7 +68,7 @@ public class EmployeeReqDTO implements Validator {
             errors.reject("lastName.null","Lastname must be not null ");
         }
         if (address.isEmpty()) {
-            errors.reject("Address.null", "Address must not be null");
+            errors.reject("address.null", "Address must not be null");
         }
         if (phoneNumber != null && phoneNumber.length() > 0) {
             if (!phoneNumber.matches("(^$|[0-9]*$)")) {
@@ -68,7 +77,6 @@ public class EmployeeReqDTO implements Validator {
             if (phoneNumber.length() == 11) {
                 errors.rejectValue("phone", "phone", "Phone number must be 10 digits");
             }
-
         }
     }
 }
