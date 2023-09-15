@@ -14,4 +14,5 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
 
 
     Employee findEmployeeByEmployeeId(Long employeeId);
+    Employee update(EmployeeReqDTO employeeReqDTO);
 }

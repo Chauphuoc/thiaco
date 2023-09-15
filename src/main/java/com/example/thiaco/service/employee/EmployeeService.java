@@ -2,6 +2,7 @@ package com.example.thiaco.service.employee;
 
 import com.example.thiaco.dto.*;
 import com.example.thiaco.exception.DataInputException;
+import com.example.thiaco.exception.ResourceNotFoundException;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
 import com.example.thiaco.model.employee.Employee;
@@ -74,6 +75,44 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public Employee findEmployeeByEmployeeId(Long employeeId) {
         return employeeRepository.findEmployeeByEmployeeId(employeeId);
+    }
+    @Override
+    public Employee update(EmployeeReqDTO employeeReqDTO) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeReqDTO.getId());
+        if (!optionalEmployee.isPresent()) {
+            throw new ResourceNotFoundException("Not found employee");
+        }
+        Employee employee = optionalEmployee.get();
+        employee.setEmployee_id(employeeReqDTO.getEmployee_id());
+        employee.setFullName(employeeReqDTO.getFullName());
+        employee.setLastName(employeeReqDTO.getLastName());
+        employee.setDateOfBirth(employeeReqDTO.getDateOfBirth());
+        employee.setGender(employeeReqDTO.getGender());
+        employee.setAge(employeeReqDTO.getAge());
+        employee.setPlaceOfBirth(employeeReqDTO.getPlaceOfBirth());
+        employee.setQualification(employeeReqDTO.getQualification());
+        employee.setEducationLevel(employeeReqDTO.getEducationLevel());
+        employee.setCulturalLevel(employeeReqDTO.getCulturalLevel());
+        employee.setHomeTown(employeeReqDTO.getHomeTown());
+        employee.setAccommodation(employeeReqDTO.getAccommodation());
+        employee.setMaritalStatus(employeeReqDTO.getMaritalStatus());
+        employee.setPosition(employeeReqDTO.getPosition());
+        employee.setJoiningday(employeeReqDTO.getJoiningday());
+        employee.setEmploymentContractDate(employeeReqDTO.getEmploymentContractDate());
+        employee.setSocialInsuranceNumber(employeeReqDTO.getSocialInsuranceNumber());
+        employee.setPhoneNumber(employeeReqDTO.getPhoneNumber());
+        employee.setIdCardNumber(employeeReqDTO.getIdCardNumber());
+        employee.setCitizenCardNumber(employeeReqDTO.getCitizenCardNumber());
+        employee.setDateOfIssue(employeeReqDTO.getDateOfIssue());
+        employee.setPlaceOfIssue(employeeReqDTO.getPlaceOfIssue());
+
+        employee.setDepartment(employeeReqDTO.getDepartmentDTO().toDepartment());
+        employee.setLocationRegion(employeeReqDTO.getLocationRegionDTO().toLocationRegion());
+        employee.setSalary(employeeReqDTO.getSalaryDTO().toSalary());
+        return employee;
+//        private DepartmentDTO departmentDTO;
+//        private LocationRegionDTO locationRegionDTO;
+//        private SalaryDTO salaryDTO;
     }
 
 

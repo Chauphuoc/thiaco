@@ -71,7 +71,7 @@ public class Employee extends BaseEntity {
     private String phoneNumber;
     @Column(name = "socmnd",nullable = true)
     private String idCardNumber;
-    @Column(name = "socccd",nullable = false)
+    @Column(name = "socccd",nullable = false,unique = true)
     private String citizenCardNumber;
     @Column(name = "ngaycap",nullable = false)
     private Date dateOfIssue;
