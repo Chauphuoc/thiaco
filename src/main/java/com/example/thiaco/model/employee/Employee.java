@@ -5,6 +5,7 @@ import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
 import com.example.thiaco.model.salary.Salary;
+import com.example.thiaco.service.employee.EmployeeService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +38,7 @@ public class Employee extends BaseEntity {
     @Column(name = "ten", nullable = false)
     private String lastName;
     @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     @Column(name = "gioitinh", nullable = false)
     private String gender;
     @Column(name = "tuoi", nullable = true)
@@ -58,9 +60,9 @@ public class Employee extends BaseEntity {
     @Column(name = "chucvu")
     private String position;
     @Column(name = "ngayvaocongty")
-    private Date joiningday;
+    private LocalDate joiningday;
     @Column(name = "ngaykyhd")
-    private Date employmentContractDate;
+    private LocalDate employmentContractDate;
     @Column(name = "thangdongbhxh")
     private int SocialInsuranceMonth;
     @Column(name = "moiquanhe")
@@ -74,7 +76,7 @@ public class Employee extends BaseEntity {
     @Column(name = "socccd",nullable = false,unique = true)
     private String citizenCardNumber;
     @Column(name = "ngaycap",nullable = false)
-    private Date dateOfIssue;
+    private LocalDate dateOfIssue;
     @Column(name = "noicap",nullable = false)
     private String placeOfIssue;
     @ManyToOne
@@ -92,7 +94,7 @@ public class Employee extends BaseEntity {
                 .setEmployee_id(employee_id)
                 .setFullName(fullName)
                 .setLastName(lastName)
-                .setDateOfBirth(dateOfBirth)
+                .setDateOfBirth(EmployeeService.converLocalDateToString(dateOfBirth))
                 .setAge(age)
                 .setGender(gender)
                 .setPlaceOfBirth(placeOfBirth)
@@ -103,15 +105,15 @@ public class Employee extends BaseEntity {
                 .setAccommodation(accommodation)
                 .setMaritalStatus(maritalStatus)
                 .setPosition(position)
-                .setJoiningday(joiningday)
-                .setEmploymentContractDate(employmentContractDate)
+                .setJoiningday(EmployeeService.converLocalDateToString(joiningday))
+                .setEmploymentContractDate(EmployeeService.converLocalDateToString(employmentContractDate))
                 .setSocialInsuranceMonth(SocialInsuranceMonth)
                 .setRelationShip(relationShip)
                 .setSocialInsuranceNumber(socialInsuranceNumber)
                 .setPhoneNumber(phoneNumber)
                 .setIdCardNumber(idCardNumber)
                 .setCitizenCardNumber(citizenCardNumber)
-                .setDateOfIssue(dateOfIssue)
+                .setDateOfIssue(EmployeeService.converLocalDateToString(dateOfIssue))
                 .setPlaceOfIssue(placeOfIssue)
                 .setDepartmentDTO(department.toDepartmentDTO())
                 .setLocationRegionDTO(locationRegion.toLocationRegionDTO())

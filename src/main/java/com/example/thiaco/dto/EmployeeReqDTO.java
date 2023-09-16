@@ -27,8 +27,8 @@ public class EmployeeReqDTO   {
     @NotEmpty(message = "Tên không được bỏ trống")
     @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+",message = "Tên không đúng định dạng")
     private String lastName;
-    @NotNull(message = "Ngày sinh không được để trống")
-    private Date dateOfBirth;
+    @NotEmpty(message = "Ngày sinh không được để trống")
+    private String dateOfBirth;
     @NotEmpty(message = "Giới tính không được để trống")
     private String gender;
     @NotNull(message = "Tuổi không được để trống")
@@ -51,23 +51,23 @@ public class EmployeeReqDTO   {
     private String MaritalStatus;
     @NotEmpty(message = "Vị trí nhân viên không được để trống")
     private String position;
-    @NotNull(message = "Ngày vào làm không được để trống")
-    private Date joiningday;
-    @NotNull(message = "Ngày ký hợp đồng không được để trống")
-    private Date EmploymentContractDate;
+    @NotEmpty(message = "Ngày vào làm không được để trống")
+    private String joiningday;
+    @NotEmpty(message = "Ngày ký hợp đồng không được để trống")
+    private String EmploymentContractDate;
     private int SocialInsuranceMonth;
     private String relationShip;
     private String SocialInsuranceNumber;
     @NotEmpty(message = "Số điện thoại không được để trống")
-    @Pattern(regexp = "^$|[0-9]*$",message = "Số điện thoại phải là số")
+    @Pattern(regexp = "^\\d{9}$",message = "Số điện thoại phải là số")
     private String phoneNumber;
 
     private String idCardNumber;
     @NotEmpty(message = "CCCD không được để trống")
-    @Pattern(regexp = "^d{9}$",message = "CCCD phải là 9 số")
+    @Pattern(regexp = "^\\d{9}$",message = "CCCD phải là 9 số")
     private String citizenCardNumber;
-    @NotNull(message = "Ngày cấp CCCD không được để trống")
-    private Date dateOfIssue;
+    @NotEmpty(message = "Ngày cấp CCCD không được để trống")
+    private String dateOfIssue;
     @NotEmpty(message = "Nơi cấp CCCD không được để trống")
     private String placeOfIssue;
 
