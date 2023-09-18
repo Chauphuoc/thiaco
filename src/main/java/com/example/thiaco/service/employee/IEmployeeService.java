@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,6 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
 
     void importToDb(MultipartFile multipartfile);
 
-    StreamingResponseBody exportToExcel(HttpServletResponse response);
+    void exportToExcel(HttpServletResponse response) throws IOException;
 
 }

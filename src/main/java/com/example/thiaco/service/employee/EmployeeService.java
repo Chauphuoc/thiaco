@@ -11,6 +11,7 @@ import com.example.thiaco.repository.DepartmentRepository;
 import com.example.thiaco.repository.EmployeeRepository;
 import com.example.thiaco.repository.LocationRegionRepository;
 import com.example.thiaco.repository.SalaryRepository;
+import com.example.thiaco.utils.ExcelGenerator;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.Response;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -343,97 +345,20 @@ public class EmployeeService implements IEmployeeService {
         return date.format(formatter);
     }
 
+
     @Override
-    public StreamingResponseBody exportToExcel(HttpServletResponse response) {
-        //StreamingResponseBody dùng để xuất dữ liệu dưới dạng file excel và trả nó về như một phản hồi HTTP
-        List<Employee> employees = employeeRepository.findAll();
-        if (employees.isEmpty()) {
-            throw new ResourceNotFoundException("No data found in database");
-        }
-        return outputStream -> {
-            generateExcelData(outputStream, employees, response);
-        };
+    public void exportToExcel(HttpServletResponse response) throws  IOException {
+        //setting thời gian tạo ngày tháng tên file,... cho file excel
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=employee" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List <Employee> employees = employeeRepository.findEmployeesByDeletedIsFalse();
+        ExcelGenerator generator = new ExcelGenerator(employees);
+        generator.generateExcelFile(response);
     }
-
-    private void generateExcelData(OutputStream outputStream, List<Employee> employees, HttpServletResponse response) {
-        try ( //Tạo workbook
-              ByteArrayOutputStream out = new ByteArrayOutputStream();
-              SXSSFWorkbook workbook = new SXSSFWorkbook(SXSSFWorkbook.DEFAULT_WINDOW_SIZE)
-        )
-        {
-            System.out.println("Iam here");
-            String sheetName = "Employee";
-            Sheet sheet = workbook.createSheet(sheetName);
-            Font headerFont = workbook.createFont();
-            headerFont.setColor(IndexedColors.BLACK.getIndex());
-            CellStyle headerColumnStyle = workbook.createCellStyle();
-            headerColumnStyle.setFont(headerFont);
-            Row headerRow = sheet.createRow(0);
-
-            //Tạo các header
-            String[] columns = new String[]{"Id", "MaNV", "FullName","Age", "Date of birth", "Phone","Address"};
-            for (int i = 0; i < columns.length; i++) {
-                Cell headerColumn = headerRow.createCell(i);
-                headerColumn.setCellValue(columns[i]);
-                headerColumn.setCellStyle(headerColumnStyle);
-            }
-
-            CellStyle dataColumnDateFormatStyle = workbook.createCellStyle();
-            CreationHelper creationHelper = workbook.getCreationHelper();
-            dataColumnDateFormatStyle.setDataFormat(creationHelper.createDataFormat().getFormat("d/m/yy h:mm;@"));
-
-
-            int rowIndex = 1;
-            for (Employee employee : employees) {
-                Row dataRow = sheet.createRow(rowIndex);
-                Cell columnId = dataRow.createCell(0);
-                columnId.setCellValue(String.valueOf(employee.getId() != null ? employee.getId() : -1));
-
-                Cell columnNV = dataRow.createCell(1);
-                columnNV.setCellValue(String.valueOf(employee.getEmployee_id()!=null?employee.getEmployee_id():""));
-
-                Cell columnName = dataRow.createCell(2);
-                columnName.setCellValue(employee.getFullName() != null ? employee.getFullName() : "");
-
-                Cell columnAge = dataRow.createCell(3);
-                columnAge.setCellValue(String.valueOf(  String.valueOf(employee.getAge())!= null ? employee.getAge() : ""));
-
-                Cell columnDateOfBirth = dataRow.createCell(4);
-                columnDateOfBirth.setCellValue(String.valueOf(employee.getDateOfBirth()!=null ? employee.getDateOfBirth() : ""));
-
-                Cell columnPhone = dataRow.createCell(5);
-                columnPhone.setCellValue(String.valueOf(employee.getPhoneNumber() != null ? employee.getPhoneNumber() : ""));
-
-
-                Cell columnAddress = dataRow.createCell(6);
-                columnAddress.setCellValue(employee.getLocationRegion().getAddress() != null ? employee.getLocationRegion().getAddress() : "");
-
-                rowIndex++;
-            }
-
-            workbook.write(out);
-            workbook.dispose();
-
-            String filename = "Export-customer-data" + ".xlsx";
-            response.setHeader("Content-Disposition", "attachment; filename=" + filename);
-            response.setContentLength(out.size());
-
-            InputStream inputStream = new ByteArrayInputStream(out.toByteArray());
-            int BUFFER_SIZE = 1024;
-            int bytesRead;
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
