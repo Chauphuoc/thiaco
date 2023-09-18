@@ -84,8 +84,7 @@ public class Employee extends BaseEntity {
     private Department department;
     @OneToOne(mappedBy = "employee")
     private LocationRegion locationRegion;
-    @OneToOne
-    @JoinColumn(name = "bangluong_id",referencedColumnName = "id",nullable = true)
+    @OneToOne(mappedBy = "employee")
     private Salary salary;
 
     public EmployeeDTO toEmployeeDTO() {

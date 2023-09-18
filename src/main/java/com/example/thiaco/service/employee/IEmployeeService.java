@@ -4,7 +4,9 @@ import com.example.thiaco.dto.EmployeeReqDTO;
 import com.example.thiaco.dto.EmployeeReqUpDTO;
 import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.service.IGeneralService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -22,5 +24,7 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     List<Employee> deleteEmployee(Employee employee);
 
     void importToDb(MultipartFile multipartfile);
+
+    StreamingResponseBody exportToExcel(HttpServletResponse response);
 
 }

@@ -11,9 +11,11 @@ import com.example.thiaco.repository.DepartmentRepository;
 import com.example.thiaco.repository.EmployeeRepository;
 import com.example.thiaco.repository.LocationRegionRepository;
 import com.example.thiaco.repository.SalaryRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
+import org.apache.coyote.Response;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -21,8 +23,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import java.io.IOException;
+import java.io.*;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -142,7 +146,20 @@ public class EmployeeService implements IEmployeeService {
         locationRegionRepository.save(curLocationRegion);
         employee.setLocationRegion(curLocationRegion);
 
-        employee.setSalary(employeeReqUpDTO.getSalaryDTO().toSalary());
+        Optional<Salary> optionalSalary = salaryRepository.findById(employeeReqUpDTO.getSalaryDTO().getId());
+        if (!optionalLocationRegion.isPresent()) {
+            throw new ResourceNotFoundException("Salary is not found");
+        }
+        Salary curSalary = optionalSalary.get();
+        curSalary.setYearOfWork(employeeReqUpDTO.getSalaryDTO().getYearOfWork());
+        curSalary.setBasicSalary(employeeReqUpDTO.getSalaryDTO().getBasicSalary());
+        curSalary.setSalaryCoEfficient(employeeReqUpDTO.getSalaryDTO().getSalaryCoEfficient());
+        curSalary.setOtherDetails(employeeReqUpDTO.getSalaryDTO().getOtherDetails());
+        curSalary.setSalaryAmount(employeeReqUpDTO.getSalaryDTO().getSalaryAmount());
+        salaryRepository.save(curSalary);
+
+        employee.setSalary(curSalary);
+        employeeRepository.save(employee);
         return employee;
     }
 
@@ -184,49 +201,91 @@ public class EmployeeService implements IEmployeeService {
             try {
                 XSSFWorkbook workbook = new XSSFWorkbook(multipartfile.getInputStream());
                 XSSFSheet sheet = workbook.getSheetAt(0);
-                //Cho vòng lặp chạy trên cột thứ nhất (id), chạy qua tất cả các hàng của cột
                 for (int rowIndex = 0; rowIndex < getNumberOfNonEmptyCells(sheet, 0); rowIndex++) {
                     XSSFRow row = sheet.getRow(rowIndex);
                     if (rowIndex == 0) {
                         continue;
                     }
-                    Long employee_id = Long.parseLong(String.valueOf(getValue(row.getCell(1))));
-                    String fullName = String.valueOf(getValue(row.getCell(2)));
-                    String lastName = String.valueOf(getValue(row.getCell(3)));
-                    String dateOfBirth = String.valueOf(getValue(row.getCell(4)));
-                    String gender = String.valueOf(getValue(row.getCell(5)));
-                    int age = Integer.parseInt(String.valueOf(row.getCell(6)));
-                    String placeOfBirth = String.valueOf(row.getCell(7));
-                    String qualification = String.valueOf(row.getCell(8));
-                    String educationLevel = String.valueOf(row.getCell(9));
-                    String culturalLevel = String.valueOf(row.getCell(10));
-                    String homeTown =String.valueOf(row.getCell(11));
-                    String accommodation =String.valueOf(row.getCell(12));
-                    String maritalStatus = String.valueOf(row.getCell(13));
-                    String position = String.valueOf(row.getCell(14));
-                    String joiningday = String.valueOf(row.getCell(15));
-                    String employmentContractDate= String.valueOf(row.getCell(16));
-                    int  socialInsuranceMonth = Integer.parseInt(String.valueOf(row.getCell(17))) ;
-                    String relationShip = String.valueOf(row.getCell(18));
-                    String socialInsuranceNumber= String.valueOf(row.getCell(19));
-                    String phoneNumber= String.valueOf(row.getCell(20));
-                    String idCardNumber= String.valueOf(row.getCell(21));;
-                    String citizenCardNumber= String.valueOf(row.getCell(22));;
-                    String dateOfIssue= String.valueOf(row.getCell(23));;
-                    String placeOfIssue= String.valueOf(row.getCell(24));
+                    Long employee_id = Long.parseLong(String.valueOf(getValue(row.getCell(0))));
+                    String fullName = String.valueOf(getValue(row.getCell(1)));
+                    String lastName = String.valueOf(getValue(row.getCell(2)));
+                    String dateOfBirth = String.valueOf(getValue(row.getCell(3)));
+                    String gender = String.valueOf(getValue(row.getCell(4)));
+                    int age =  (int) Double.parseDouble(String.valueOf(row.getCell(5)));
+                    String placeOfBirth = String.valueOf(row.getCell(6));
+                    String qualification = String.valueOf(row.getCell(7));
+                    String educationLevel = String.valueOf(row.getCell(8));
+                    String culturalLevel = String.valueOf(row.getCell(9));
+                    String homeTown =String.valueOf(row.getCell(10));
+                    String accommodation =String.valueOf(row.getCell(11));
+                    String maritalStatus = String.valueOf(row.getCell(12));
+                    String position = String.valueOf(row.getCell(13));
+                    String joiningday = String.valueOf(row.getCell(14));
+                    String employmentContractDate= String.valueOf(row.getCell(15));
+                    int  socialInsuranceMonth = (int)Double.parseDouble(String.valueOf(row.getCell(16))) ;
+                    String relationShip = String.valueOf(row.getCell(17));
+                    String socialInsuranceNumber= String.valueOf(row.getCell(18));
+                    String phoneNumber= String.valueOf(row.getCell(19));
+                    String idCardNumber= String.valueOf(row.getCell(20));;
+                    String citizenCardNumber= String.valueOf(row.getCell(21));;
+                    String dateOfIssue= String.valueOf(row.getCell(22));;
+                    String placeOfIssue= String.valueOf(row.getCell(23));
 
-                    int department_id = Integer.parseInt(String.valueOf(row.getCell(25)));
+                    String address = String.valueOf(row.getCell(25));
+
+                    int department_id = (int) Double.parseDouble(String.valueOf(row.getCell(24)));
+
+                    String base_salary = String.valueOf(row.getCell(26));
+                    String ef_salary = String.valueOf(row.getCell(27));
+                    String salaryAmount = String.valueOf(row.getCell(28));
+
                     Optional<Department> optionalDepartment = departmentRepository.findById((long) department_id);
                     Department department = optionalDepartment.get();
-
-//                    int salary_id = Integer.parseInt(String.valueOf(row.getCell(26)));
-
-//                    String address = String.valueOf(row.getCell(27));
                     Employee employee = new Employee();
                     employee.setEmployee_id(employee_id);
                     employee.setFullName(fullName);
                     employee.setLastName(lastName);
+                    employee.setDateOfBirth(EmployeeService.convertStringToLocalDate(dateOfBirth));
+                    employee.setGender(gender);
+                    employee.setAge(age);
+                    employee.setPlaceOfBirth(placeOfBirth);
+                    employee.setQualification(qualification);
+                    employee.setEducationLevel(educationLevel);
+                    employee.setCulturalLevel(culturalLevel);
+                    employee.setEducationLevel(educationLevel);
+                    employee.setCulturalLevel(culturalLevel);
+                    employee.setHomeTown(homeTown);
+                    employee.setAccommodation(accommodation);
+                    employee.setMaritalStatus(maritalStatus);
+                    employee.setPosition(position);
+                    employee.setJoiningday(EmployeeService.convertStringToLocalDate(joiningday));
+                    employee.setEmploymentContractDate(EmployeeService.convertStringToLocalDate(employmentContractDate));
+                    employee.setSocialInsuranceMonth(socialInsuranceMonth);
+                    employee.setRelationShip(relationShip);
+                    employee.setSocialInsuranceNumber(socialInsuranceNumber);
+                    employee.setPhoneNumber(phoneNumber);
+                    employee.setIdCardNumber(idCardNumber);
+                    employee.setCitizenCardNumber(citizenCardNumber);
+                    employee.setDateOfIssue(EmployeeService.convertStringToLocalDate(dateOfIssue));
+                    employee.setPlaceOfIssue(placeOfIssue);
+                    employee.setDepartment(department);
 
+                    LocationRegion locationRegion = new LocationRegion();
+                    locationRegion.setAddress(address);
+                    employee.setLocationRegion(locationRegion);
+                    locationRegion.setEmployee(employee);
+                    locationRegionRepository.save(locationRegion);
+
+                    Salary salary = new Salary();
+                    salary.setBasicSalary(BigDecimal.valueOf(Double.valueOf(base_salary)));
+                    salary.setSalaryCoEfficient(BigDecimal.valueOf(Double.valueOf(ef_salary)));
+                    salary.setSalaryAmount(BigDecimal.valueOf(Double.valueOf(salaryAmount)) );
+                    salary.setEmployee(employee);
+                    salaryRepository.save(salary);
+
+                    employee.setSalary(salary);
+
+                    employees.add(employee);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -239,6 +298,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
 
+//  Đếm kể cả thanh tiêu đề
     public static int getNumberOfNonEmptyCells(XSSFSheet sheet, int columnIndex) {
         int numOfNonEmptyCells = 0;
         for (int i = 0; i <= sheet.getLastRowNum(); i++) {
@@ -283,5 +343,97 @@ public class EmployeeService implements IEmployeeService {
         return date.format(formatter);
     }
 
+    @Override
+    public StreamingResponseBody exportToExcel(HttpServletResponse response) {
+        //StreamingResponseBody dùng để xuất dữ liệu dưới dạng file excel và trả nó về như một phản hồi HTTP
+        List<Employee> employees = employeeRepository.findAll();
+        if (employees.isEmpty()) {
+            throw new ResourceNotFoundException("No data found in database");
+        }
+        return outputStream -> {
+            generateExcelData(outputStream, employees, response);
+        };
+    }
+
+    private void generateExcelData(OutputStream outputStream, List<Employee> employees, HttpServletResponse response) {
+        try ( //Tạo workbook
+              ByteArrayOutputStream out = new ByteArrayOutputStream();
+              SXSSFWorkbook workbook = new SXSSFWorkbook(SXSSFWorkbook.DEFAULT_WINDOW_SIZE)
+        )
+        {
+            System.out.println("Iam here");
+            String sheetName = "Employee";
+            Sheet sheet = workbook.createSheet(sheetName);
+            Font headerFont = workbook.createFont();
+            headerFont.setColor(IndexedColors.BLACK.getIndex());
+            CellStyle headerColumnStyle = workbook.createCellStyle();
+            headerColumnStyle.setFont(headerFont);
+            Row headerRow = sheet.createRow(0);
+
+            //Tạo các header
+            String[] columns = new String[]{"Id", "MaNV", "FullName","Age", "Date of birth", "Phone","Address"};
+            for (int i = 0; i < columns.length; i++) {
+                Cell headerColumn = headerRow.createCell(i);
+                headerColumn.setCellValue(columns[i]);
+                headerColumn.setCellStyle(headerColumnStyle);
+            }
+
+            CellStyle dataColumnDateFormatStyle = workbook.createCellStyle();
+            CreationHelper creationHelper = workbook.getCreationHelper();
+            dataColumnDateFormatStyle.setDataFormat(creationHelper.createDataFormat().getFormat("d/m/yy h:mm;@"));
+
+
+            int rowIndex = 1;
+            for (Employee employee : employees) {
+                Row dataRow = sheet.createRow(rowIndex);
+                Cell columnId = dataRow.createCell(0);
+                columnId.setCellValue(String.valueOf(employee.getId() != null ? employee.getId() : -1));
+
+                Cell columnNV = dataRow.createCell(1);
+                columnNV.setCellValue(String.valueOf(employee.getEmployee_id()!=null?employee.getEmployee_id():""));
+
+                Cell columnName = dataRow.createCell(2);
+                columnName.setCellValue(employee.getFullName() != null ? employee.getFullName() : "");
+
+                Cell columnAge = dataRow.createCell(3);
+                columnAge.setCellValue(String.valueOf(  String.valueOf(employee.getAge())!= null ? employee.getAge() : ""));
+
+                Cell columnDateOfBirth = dataRow.createCell(4);
+                columnDateOfBirth.setCellValue(String.valueOf(employee.getDateOfBirth()!=null ? employee.getDateOfBirth() : ""));
+
+                Cell columnPhone = dataRow.createCell(5);
+                columnPhone.setCellValue(String.valueOf(employee.getPhoneNumber() != null ? employee.getPhoneNumber() : ""));
+
+
+                Cell columnAddress = dataRow.createCell(6);
+                columnAddress.setCellValue(employee.getLocationRegion().getAddress() != null ? employee.getLocationRegion().getAddress() : "");
+
+                rowIndex++;
+            }
+
+            workbook.write(out);
+            workbook.dispose();
+
+            String filename = "Export-customer-data" + ".xlsx";
+            response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+            response.setContentLength(out.size());
+
+            InputStream inputStream = new ByteArrayInputStream(out.toByteArray());
+            int BUFFER_SIZE = 1024;
+            int bytesRead;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

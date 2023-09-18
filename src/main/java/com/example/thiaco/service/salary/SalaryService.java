@@ -1,5 +1,6 @@
 package com.example.thiaco.service.salary;
 
+import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.model.salary.Salary;
 import com.example.thiaco.repository.SalaryRepository;
 import jakarta.transaction.Transactional;
@@ -37,5 +38,10 @@ public class SalaryService implements ISalaryService {
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public Salary findSalaryByEmployee(Employee employee) {
+        return salaryRepository.findSalaryByEmployee(employee);
     }
 }

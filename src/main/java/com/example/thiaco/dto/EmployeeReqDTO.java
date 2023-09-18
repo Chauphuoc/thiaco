@@ -70,44 +70,12 @@ public class EmployeeReqDTO   {
     private String dateOfIssue;
     @NotEmpty(message = "Nơi cấp CCCD không được để trống")
     private String placeOfIssue;
-
+    @NotNull(message = "Phòng ban không được để trống")
     private DepartmentDTO departmentDTO;
     @NotNull(message = "Địa chỉ không được để trống")
     private LocationRegionDTO locationRegionDTO;
     @NotNull(message = "Lương không được để trống")
     private SalaryDTO salaryDTO;
 
-//    @Override
-//    public boolean supports(Class<?> clazz) {
-//        return EmployeeReqDTO.class.isAssignableFrom(clazz);
-//    }
-//
-//    @Override
-//    public void validate(Object target, Errors errors) {
-//        EmployeeReqDTO employeeReqDTO = (EmployeeReqDTO) target;
-//        String firstName = employeeReqDTO.getFullName();
-//        String lastName = employeeReqDTO.getLastName();
-//        String phoneNumber = employeeReqDTO.getPhoneNumber();
-//        String address = employeeReqDTO.getLocationRegionDTO().getAddress();
-//        Long employeeId = employeeReqDTO.getEmployee_id();
-//        String cccd = employeeReqDTO.getCitizenCardNumber();
-//        // co the dung @Notnull
-//        if (firstName.isEmpty()) {
-//            errors.reject("fullName.null", "Firstname must be not null");
-//        }
-//        if (lastName.isEmpty()) {
-//            errors.reject("lastName.null","Lastname must be not null ");
-//        }
-//        if (address.isEmpty()) {
-//            errors.reject("address.null", "Address must not be null");
-//        }
-//        if (phoneNumber != null && phoneNumber.length() > 0) {
-//            if (!phoneNumber.matches("(^$|[0-9]*$)")) {
-//                errors.rejectValue("phone", "phone.number", "phone must be a number");
-//            }
-//            if (phoneNumber.length() == 11) {
-//                errors.rejectValue("phone", "phone", "Phone number must be 10 digits");
-//            }
-//        }
-//    }
+
 }

@@ -2,6 +2,7 @@ package com.example.thiaco.dto;
 
 import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.service.employee.EmployeeService;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,32 +16,62 @@ import java.util.Date;
 @AllArgsConstructor
 public class EmployeeReqUpDTO {
     private Long id;
+    @NotNull(message = "Mã nhân viên không được để trống")
+    @Min(value = 1000,message = "Mã nhân viên phải lớn hơn hoặc bằng 1000")
+    @Max(value = 9999,message = "Mã nhân viên phải bé hơn hoặc bằng 9999")
     private Long employee_id;
+    @NotEmpty(message = "Họ và tên không được bỏ trống")
+    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+",message = "Họ và tên không đúng định dạng")
     private String fullName;
+    @NotEmpty(message = "Tên không được bỏ trống")
+    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+",message = "Tên không đúng định dạng")
     private String lastName;
+    @NotEmpty(message = "Ngày sinh không được để trống")
     private String dateOfBirth;
+    @NotEmpty(message = "Giới tính không được để trống")
     private String gender;
+    @NotNull(message = "Tuổi không được để trống")
+    @Min(value = 1, message = "Tuổi phải lớn hơn hoặc bằng 1")
+    @Max(value = 100, message = "Tuổi phải nhỏ hơn hoặc bằng 100")
     private int age;
+    @NotEmpty(message = "Nơi sinh không được để trống")
     private String placeOfBirth;
+    @NotEmpty(message = "Trình độ chuyên môn không được để trống")
     private String qualification;
+    @NotEmpty(message = "Trình độ học vấn không được để trống")
     private String educationLevel;
+    @NotEmpty(message = "Trình độ văn hoá không được để trống")
     private String culturalLevel;
+    @NotEmpty(message = "Quê quán không được để trống")
     private String homeTown;
+    @NotEmpty(message = "Chỗ ở không được để trống")
     private String accommodation;
     private String maritalStatus;
+    @NotEmpty(message = "Vị trí nhân viên không được để trống")
     private String position;
+    @NotEmpty(message = "Ngày vào làm không được để trống")
     private String joiningday;
+    @NotEmpty(message = "Ngày ký hợp đồng không được để trống")
     private String employmentContractDate;
     private int socialInsuranceMonth;
     private String relationShip;
     private String socialInsuranceNumber;
+    @NotEmpty(message = "Số điện thoại không được để trống")
+    @Pattern(regexp = "^\\d{9}$",message = "Số điện thoại phải là số")
     private String phoneNumber;
     private String idCardNumber;
+    @NotEmpty(message = "CCCD không được để trống")
+    @Pattern(regexp = "^\\d{9}$",message = "CCCD phải là 9 số")
     private String citizenCardNumber;
+    @NotEmpty(message = "Ngày cấp CCCD không được để trống")
     private String dateOfIssue;
+    @NotEmpty(message = "Nơi cấp CCCD không được để trống")
     private String placeOfIssue;
+    @NotNull(message = "Phòng ban không được để trống")
     private DepartmentDTO departmentDTO;
+    @NotNull(message = "Địa chỉ không được để trống")
     private LocationRegionDTO locationRegionDTO;
+    @NotNull(message = "Lương không được để trống")
     private SalaryDTO salaryDTO;
 
     public Employee toEmployee() {

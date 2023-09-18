@@ -40,6 +40,9 @@ public class Salary extends BaseEntity
     @Column(name = "luongCoBan", precision = 9, scale = 0, nullable = false)
     private BigDecimal basicSalary;
 
+    @OneToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "id",nullable = true)
+    private Employee employee;
 
     public SalaryDTO toSalaryDTO() {
         return new SalaryDTO()
@@ -48,6 +51,7 @@ public class Salary extends BaseEntity
                 .setSalaryAmount(salaryAmount)
                 .setSalaryCoEfficient(salaryCoEfficient)
                 .setOtherDetails(otherDetails)
-                .setBasicSalary(basicSalary);
+                .setBasicSalary(basicSalary)
+                ;
     }
 }
