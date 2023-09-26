@@ -1,33 +1,60 @@
-//package com.example.thiaco.security;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig{
-//
-////    @Bean
-////    public UserDetailsService userDetailsService() {
-////        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-////        manager.createUser(User.withDefaultPasswordEncoder().username("user").password("password").build());
-////        return manager;
-////    }
-//
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http
-//                .authorizeRequests(authorize -> authorize
-//                        .anyRequest().permitAll()
-//                );
-////                .formLogin(withDefaults())
-////                .httpBasic(withDefaults());
-//        return http.build();
-//    }
-//}
+package com.example.thiaco.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.swing.*;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig{
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Bean
+    public static PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http
+                .csrf(crsf -> crsf.disable())
+                .authorizeRequests(authorize -> {
+                    authorize.requestMatchers("/register/**","/resources/**","/assets/**","/static/**").permitAll()
+                            .requestMatchers("/admin").hasRole("ADMIN") // Có admin mới vào được trang này
+//                            .requestMatchers("/api/**").hasRole("USER")
+                            .anyRequest().authenticated() //yêu cầu xác thực login thành công
+                    ;
+                })
+                .formLogin(login -> {
+                    login.loginPage("/login")
+                            .loginProcessingUrl("/login")
+                            .defaultSuccessUrl("/index")
+                            .permitAll();
+                })
+                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll())
+        ;
+        return http.build();
+    }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
+}

@@ -2,6 +2,7 @@ package com.example.thiaco.dto;
 
 import com.example.thiaco.model.salary.Salary;
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 public class EmployeeDTO {
     private Long id;
@@ -46,4 +48,6 @@ public class EmployeeDTO {
     private DepartmentDTO departmentDTO;
     private LocationRegionDTO locationRegionDTO;
     private SalaryDTO salaryDTO;
+
+
 }

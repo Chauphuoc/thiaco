@@ -3,6 +3,7 @@ package com.example.thiaco.model.salary;
 import com.example.thiaco.dto.SalaryEffDTO;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.department.Department;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class SalaryCoEfficient extends BaseEntity {
     private String year;
     @Column(name = "heSoLuong",nullable = false)
     private BigDecimal salaryEfficientAmount;
+
     @ManyToOne
     @JoinColumn(name = "phongBan_id",referencedColumnName = "id",nullable = false)
     private Department department;

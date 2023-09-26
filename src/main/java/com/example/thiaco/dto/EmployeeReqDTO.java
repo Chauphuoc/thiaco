@@ -22,10 +22,10 @@ public class EmployeeReqDTO   {
     private Long employee_id;
 
     @NotEmpty(message = "Họ và tên không được bỏ trống")
-    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+",message = "Họ và tên không đúng định dạng")
+    @Pattern(regexp = "^[A-Za-z\\s'-]+$",message = "Họ và tên không đúng định dạng")
     private String fullName;
     @NotEmpty(message = "Tên không được bỏ trống")
-    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+",message = "Tên không đúng định dạng")
+    @Pattern(regexp = "^[A-Za-z\\s'-]+$",message = "Tên không đúng định dạng")
     private String lastName;
     @NotEmpty(message = "Ngày sinh không được để trống")
     private String dateOfBirth;
@@ -59,12 +59,12 @@ public class EmployeeReqDTO   {
     private String relationShip;
     private String SocialInsuranceNumber;
     @NotEmpty(message = "Số điện thoại không được để trống")
-    @Pattern(regexp = "^\\d{9}$",message = "Số điện thoại phải là số")
+    @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số")
     private String phoneNumber;
 
     private String idCardNumber;
     @NotEmpty(message = "CCCD không được để trống")
-    @Pattern(regexp = "^\\d{9}$",message = "CCCD phải là 9 số")
+    @Pattern(regexp = "^\\d{12}$",message = "CCCD phải là 9 số")
     private String citizenCardNumber;
     @NotEmpty(message = "Ngày cấp CCCD không được để trống")
     private String dateOfIssue;

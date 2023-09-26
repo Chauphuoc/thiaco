@@ -1,20 +1,20 @@
 package com.example.thiaco.service.employee;
 
-import com.example.thiaco.dto.EmployeeReqDTO;
 import com.example.thiaco.dto.EmployeeReqUpDTO;
+import com.example.thiaco.dto.EmployeeResDTO;
 import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.service.IGeneralService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public interface IEmployeeService extends IGeneralService<Employee,Long> {
     List<Employee> saveAll(List<Employee> products);
-    List<Employee> findEmployeesByDeletedIsFalse();
+    List<Employee> findEmployeesByDeletedIsFalse( );
 
      Employee findEmployeeById(Long id);
 
@@ -28,4 +28,5 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
 
     void exportToExcel(HttpServletResponse response) throws IOException;
 
+    Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable);
 }

@@ -64,7 +64,7 @@ public class Employee extends BaseEntity {
     @Column(name = "ngaykyhd")
     private LocalDate employmentContractDate;
     @Column(name = "thangdongbhxh")
-    private int SocialInsuranceMonth;
+    private int socialInsuranceMonth;
     @Column(name = "moiquanhe")
     private String relationShip;
     @Column(name = "so_sobhxh")
@@ -106,7 +106,7 @@ public class Employee extends BaseEntity {
                 .setPosition(position)
                 .setJoiningday(EmployeeService.converLocalDateToString(joiningday))
                 .setEmploymentContractDate(EmployeeService.converLocalDateToString(employmentContractDate))
-                .setSocialInsuranceMonth(SocialInsuranceMonth)
+                .setSocialInsuranceMonth(socialInsuranceMonth)
                 .setRelationShip(relationShip)
                 .setSocialInsuranceNumber(socialInsuranceNumber)
                 .setPhoneNumber(phoneNumber)

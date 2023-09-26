@@ -1,7 +1,7 @@
 package com.example.thiaco.service.employee;
 
-import com.example.thiaco.dto.*;
-import com.example.thiaco.exception.DataInputException;
+import com.example.thiaco.dto.EmployeeReqUpDTO;
+import com.example.thiaco.dto.EmployeeResDTO;
 import com.example.thiaco.exception.ResourceNotFoundException;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
@@ -14,26 +14,29 @@ import com.example.thiaco.repository.SalaryRepository;
 import com.example.thiaco.utils.ExcelGenerator;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
-import org.apache.coyote.Response;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import java.io.*;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -79,7 +82,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> findEmployeesByDeletedIsFalse() {
+    public List<Employee> findEmployeesByDeletedIsFalse( ) {
         return employeeRepository.findEmployeesByDeletedIsFalse();
     }
 
@@ -157,7 +160,8 @@ public class EmployeeService implements IEmployeeService {
         curSalary.setBasicSalary(employeeReqUpDTO.getSalaryDTO().getBasicSalary());
         curSalary.setSalaryCoEfficient(employeeReqUpDTO.getSalaryDTO().getSalaryCoEfficient());
         curSalary.setOtherDetails(employeeReqUpDTO.getSalaryDTO().getOtherDetails());
-        curSalary.setSalaryAmount(employeeReqUpDTO.getSalaryDTO().getSalaryAmount());
+        BigDecimal salaryAmount = employeeReqUpDTO.getSalaryDTO().getSalaryCoEfficient().multiply(employeeReqUpDTO.getSalaryDTO().getBasicSalary());
+        curSalary.setSalaryAmount(salaryAmount);
         salaryRepository.save(curSalary);
 
         employee.setSalary(curSalary);
@@ -336,7 +340,7 @@ public class EmployeeService implements IEmployeeService {
         return null;
     }
     public static LocalDate convertStringToLocalDate(String str) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(str, formatter);
     }
 
@@ -361,4 +365,15 @@ public class EmployeeService implements IEmployeeService {
         ExcelGenerator generator = new ExcelGenerator(employees);
         generator.generateExcelFile(response);
     }
+
+
+    @Override
+    public Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable) {
+
+        Page<EmployeeResDTO> employees = employeeRepository.getEmployeesByDeletedIsFalse(pageable);
+        return employees;
+    }
+
+
+
 }

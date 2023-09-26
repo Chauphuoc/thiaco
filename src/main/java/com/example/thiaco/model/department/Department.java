@@ -4,6 +4,7 @@ import com.example.thiaco.dto.DepartmentDTO;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.model.salary.SalaryCoEfficient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,9 @@ public class Department extends BaseEntity {
 
     @Column(name = "tenPhongban", nullable = false)
     private String departmentName;
-    @OneToMany(mappedBy = "department")
+
+
+    @OneToMany(mappedBy = "department",fetch = FetchType.EAGER)
     private List<SalaryCoEfficient> salaryCoEfficient;
     public DepartmentDTO toDepartmentDTO() {
         return new DepartmentDTO()
