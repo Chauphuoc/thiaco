@@ -36,9 +36,12 @@ public class SecurityConfig{
                 .csrf(crsf -> crsf.disable())
                 .authorizeRequests(authorize -> {
                     authorize.requestMatchers("/register/**","/resources/**","/assets/**","/static/**").permitAll()
-                            .requestMatchers("/admin").hasRole("ADMIN") // Có admin mới vào được trang này
+//                            .requestMatchers("/admin").hasRole("ADMIN")
+                            // Có admin mới vào được trang này
 //                            .requestMatchers("/api/**").hasRole("USER")
-                            .anyRequest().authenticated() //yêu cầu xác thực login thành công
+                            //yêu cầu xác thực login thành công
+//                            .anyRequest().authenticated()
+                            .anyRequest().permitAll()
                     ;
                 })
                 .formLogin(login -> {

@@ -251,7 +251,7 @@ public class EmployeeService implements IEmployeeService {
                     employee.setEmployee_id(employee_id);
                     employee.setFullName(fullName);
                     employee.setLastName(lastName);
-                    employee.setDateOfBirth(EmployeeService.convertStringToLocalDate(dateOfBirth));
+                    employee.setDateOfBirth(EmployeeService.convertStringToLocalDateImp(dateOfBirth));
                     employee.setGender(gender);
                     employee.setAge(age);
                     employee.setPlaceOfBirth(placeOfBirth);
@@ -264,15 +264,15 @@ public class EmployeeService implements IEmployeeService {
                     employee.setAccommodation(accommodation);
                     employee.setMaritalStatus(maritalStatus);
                     employee.setPosition(position);
-                    employee.setJoiningday(EmployeeService.convertStringToLocalDate(joiningday));
-                    employee.setEmploymentContractDate(EmployeeService.convertStringToLocalDate(employmentContractDate));
+                    employee.setJoiningday(EmployeeService.convertStringToLocalDateImp(joiningday));
+                    employee.setEmploymentContractDate(EmployeeService.convertStringToLocalDateImp(employmentContractDate));
                     employee.setSocialInsuranceMonth(socialInsuranceMonth);
                     employee.setRelationShip(relationShip);
                     employee.setSocialInsuranceNumber(socialInsuranceNumber);
                     employee.setPhoneNumber(phoneNumber);
                     employee.setIdCardNumber(idCardNumber);
                     employee.setCitizenCardNumber(citizenCardNumber);
-                    employee.setDateOfIssue(EmployeeService.convertStringToLocalDate(dateOfIssue));
+                    employee.setDateOfIssue(EmployeeService.convertStringToLocalDateImp(dateOfIssue));
                     employee.setPlaceOfIssue(placeOfIssue);
                     employee.setDepartment(department);
 
@@ -341,6 +341,11 @@ public class EmployeeService implements IEmployeeService {
     }
     public static LocalDate convertStringToLocalDate(String str) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(str, formatter);
+    }
+
+    public static LocalDate convertStringToLocalDateImp(String str) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(str, formatter);
     }
 
