@@ -101,11 +101,12 @@ public class EmployeeService implements IEmployeeService {
         if (!optionalEmployee.isPresent()) {
             throw new ResourceNotFoundException("Not found employee");
         }
+        //update gửi lên định dạng ngày tháng năm
         Employee employee = optionalEmployee.get();
         employee.setEmployee_id(employeeReqUpDTO.getEmployee_id());
         employee.setFullName(employeeReqUpDTO.getFullName());
         employee.setLastName(employeeReqUpDTO.getLastName());
-        employee.setDateOfBirth(convertStringToLocalDate(employeeReqUpDTO.getDateOfBirth()));
+        employee.setDateOfBirth(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfBirth()));
         employee.setGender(employeeReqUpDTO.getGender());
         employee.setAge(employeeReqUpDTO.getAge());
         employee.setPlaceOfBirth(employeeReqUpDTO.getPlaceOfBirth());
@@ -116,13 +117,13 @@ public class EmployeeService implements IEmployeeService {
         employee.setAccommodation(employeeReqUpDTO.getAccommodation());
         employee.setMaritalStatus(employeeReqUpDTO.getMaritalStatus());
         employee.setPosition(employeeReqUpDTO.getPosition());
-        employee.setJoiningday(convertStringToLocalDate(employeeReqUpDTO.getJoiningday())  );
-        employee.setEmploymentContractDate(convertStringToLocalDate(employeeReqUpDTO.getEmploymentContractDate()) );
+        employee.setJoiningday(convertStringToLocalDateImp(employeeReqUpDTO.getJoiningday())  );
+        employee.setEmploymentContractDate(convertStringToLocalDateImp(employeeReqUpDTO.getEmploymentContractDate()) );
         employee.setSocialInsuranceNumber(employeeReqUpDTO.getSocialInsuranceNumber());
         employee.setPhoneNumber(employeeReqUpDTO.getPhoneNumber());
         employee.setIdCardNumber(employeeReqUpDTO.getIdCardNumber());
         employee.setCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
-        employee.setDateOfIssue(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssue()));
+        employee.setDateOfIssue(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssue()));
         employee.setPlaceOfIssue(employeeReqUpDTO.getPlaceOfIssue());
 
 
@@ -212,6 +213,7 @@ public class EmployeeService implements IEmployeeService {
                     if (rowIndex == 0) {
                         continue;
                     }
+                    //Lấy dữ liệu
                     Long employee_id = Long.parseLong(String.valueOf(getValue(row.getCell(0))));
                     String fullName = String.valueOf(getValue(row.getCell(1)));
                     String lastName = String.valueOf(getValue(row.getCell(2)));
@@ -240,7 +242,7 @@ public class EmployeeService implements IEmployeeService {
                     String address = String.valueOf(row.getCell(25));
 
                     int department_id = (int) Double.parseDouble(String.valueOf(row.getCell(24)));
-
+                    //Set dữ liệu
                     String base_salary = String.valueOf(row.getCell(26));
                     String ef_salary = String.valueOf(row.getCell(27));
                     String salaryAmount = String.valueOf(row.getCell(28));

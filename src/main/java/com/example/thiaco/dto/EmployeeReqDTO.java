@@ -22,10 +22,10 @@ public class EmployeeReqDTO   {
     private Long employee_id;
 
     @NotEmpty(message = "Họ và tên không được bỏ trống")
-    @Pattern(regexp = "^[A-Za-z\\s'-]+$",message = "Họ và tên không đúng định dạng")
+    @Pattern(regexp = "^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$",message = "Họ và tên không đúng định dạng")
     private String fullName;
     @NotEmpty(message = "Tên không được bỏ trống")
-    @Pattern(regexp = "^[A-Za-z\\s'-]+$",message = "Tên không đúng định dạng")
+    @Pattern(regexp = "^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$",message = "Tên không đúng định dạng")
     private String lastName;
     @NotEmpty(message = "Ngày sinh không được để trống")
     private String dateOfBirth;
@@ -64,7 +64,7 @@ public class EmployeeReqDTO   {
 
     private String idCardNumber;
     @NotEmpty(message = "CCCD không được để trống")
-    @Pattern(regexp = "^\\d{12}$",message = "CCCD phải là 9 số")
+    @Pattern(regexp = "^\\d{12}$",message = "CCCD phải là 12 số")
     private String citizenCardNumber;
     @NotEmpty(message = "Ngày cấp CCCD không được để trống")
     private String dateOfIssue;

@@ -57,11 +57,11 @@ public class EmployeeReqUpDTO {
     private String relationShip;
     private String socialInsuranceNumber;
     @NotEmpty(message = "Số điện thoại không được để trống")
-    @Pattern(regexp = "^\\d{9}$",message = "Số điện thoại phải là số")
+    @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số")
     private String phoneNumber;
     private String idCardNumber;
     @NotEmpty(message = "CCCD không được để trống")
-    @Pattern(regexp = "^\\d{9}$",message = "CCCD phải là 9 số")
+    @Pattern(regexp = "^\\d{12}$",message = "CCCD phải là 12 số")
     private String citizenCardNumber;
     @NotEmpty(message = "Ngày cấp CCCD không được để trống")
     private String dateOfIssue;
