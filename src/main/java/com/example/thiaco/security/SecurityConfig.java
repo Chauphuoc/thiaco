@@ -37,7 +37,6 @@ public class SecurityConfig{
                 .authorizeRequests(authorize -> {
                     authorize.requestMatchers("/register/**","/resources/**","/assets/**","/static/**").permitAll()
 //                            .requestMatchers("/admin","/api/**").hasRole("ADMIN")
-//                            .requestMatchers("/api/**").hasRole("USER")
 //                            .anyRequest().authenticated()
                             .anyRequest().permitAll()
                     ;

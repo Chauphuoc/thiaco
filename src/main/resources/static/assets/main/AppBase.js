@@ -3,8 +3,7 @@ class AppBase{
     static API_SERVER = this.DOMAIN_SERVER + '/api';
     static API_USERS = this.API_SERVER + '/users';
     static CLOUDINARY_URL = this.SERVER_CLOUDINARY + this.CLOUDINARY_NAME + '/image/upload';
-    static SCALE_IMAGE_W_80_H_80_Q_100 = 'c_limit,w_80,h_80,q_100';
-    static SCALE_IMAGE_W_80_H_80_Q_85 = 'c_limit,w_80,h_80,q_85';
+    static API_LOGGING_USER = this.API_USERS + '/index';
 
     static AlertMessageEn = class {
         static SUCCESS_CREATED = "Successful data generation !";

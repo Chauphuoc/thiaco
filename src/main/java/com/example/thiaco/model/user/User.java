@@ -1,6 +1,7 @@
 package com.example.thiaco.model.user;
 
 import com.example.thiaco.dto.UserDTO;
+import com.example.thiaco.dto.UserResDTO;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.user.Role;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -42,5 +44,12 @@ public class User extends BaseEntity {
                 .setId(id)
                 .setUsername(username)
                 .setPassword(password);
+    }
+
+    public UserResDTO toUserResDTO() {
+        return new UserResDTO()
+                .setId(id)
+                .setUsername(username)
+                .setRoleDTOs(roles.stream().map(role -> role.toRoleDTO()).collect(Collectors.toList()));
     }
 }
