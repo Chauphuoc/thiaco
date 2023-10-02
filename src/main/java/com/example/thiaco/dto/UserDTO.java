@@ -20,10 +20,6 @@ public class UserDTO {
     @NotEmpty(message = "Password không được để trống")
     private String password;
 
-    public UserDTO(Long id, String username) {
-        this.id = id;
-        this.username = username;
-    }
 
     public User toUser() {
         return new User()

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -30,6 +31,13 @@ public class UserAPI {
             User user = userService.findByUsername(userName);
         UserResDTO userResDTO = user.toUserResDTO();
         return new ResponseEntity<>(userResDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/register")
+    public String showRegisterPage(Model model) {
+        UserDTO userDTO = new UserDTO();
+        model.addAttribute("user", userDTO);
+        return "register";
     }
 
     @GetMapping

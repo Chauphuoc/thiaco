@@ -51,19 +51,19 @@ public class HomeController {
         return "register";
     }
 
-    @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute ("user") UserDTO userDTO, BindingResult bindingResult,Model model) {
-        User curUser = userService.findByUsername(userDTO.getUsername());
-        if (curUser != null && curUser.getUsername() != null && !curUser.getUsername().isEmpty()) {
-            bindingResult.rejectValue("username", null, "There is already an account registered with the same email");
-        }
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("user", userDTO);
-            return "register";
-        }
-        userService.saveUser(userDTO);
-        return "redirect:/register?success";
-    }
+//    @PostMapping("/register/save")
+//    public String registration(@Valid @ModelAttribute ("user") UserDTO userDTO, BindingResult bindingResult,Model model) {
+//        User curUser = userService.findByUsername(userDTO.getUsername());
+//        if (curUser != null && curUser.getUsername() != null && !curUser.getUsername().isEmpty()) {
+//            bindingResult.rejectValue("username", null, "There is already an account registered with the same email");
+//        }
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("user", userDTO);
+//            return "register";
+//        }
+//        userService.saveUser(userDTO);
+//        return "redirect:/register?success";
+//    }
 
     @GetMapping("/admin")
     public String users(Model model){

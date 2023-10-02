@@ -10,13 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.swing.*;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -35,8 +31,8 @@ public class SecurityConfig{
         http
                 .csrf(crsf -> crsf.disable())
                 .authorizeRequests(authorize -> {
-                    authorize.requestMatchers("/register/**","/resources/**","/assets/**","/static/**").permitAll()
-//                            .requestMatchers("/admin","/api/**").hasRole("ADMIN")
+                    authorize.requestMatchers("/resources/**","/assets/**","/static/**").permitAll()
+//                            .requestMatchers("/admin","/register/**").hasRole("ADMIN")
 //                            .anyRequest().authenticated()
                             .anyRequest().permitAll()
                     ;
