@@ -1,28 +1,23 @@
 package com.example.thiaco;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig {
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-
-        // Cho phép tất cả các nguồn gốc (bạn có thể điều chỉnh để chỉ chấp nhận tên miền cụ thể)
-        config.addAllowedOrigin("*");
-
-        // Cho phép các phương thức HTTP (GET, POST, PUT, DELETE, v.v.)
-        config.addAllowedMethod("*");
-
-        // Cho phép các tiêu đề yêu cầu (ví dụ: Authorization, Content-Type)
-        config.addAllowedHeader("*");
-
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+public class CorsConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:8086",
+                        "http://localhost:3001"
+                )
+                .allowedOriginPatterns("*")
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }

@@ -33,12 +33,6 @@ public class UserAPI {
         return new ResponseEntity<>(userResDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/register")
-    public String showRegisterPage(Model model) {
-        UserDTO userDTO = new UserDTO();
-        model.addAttribute("user", userDTO);
-        return "register";
-    }
 
     @GetMapping
     public ResponseEntity<?> getAllUsers() {

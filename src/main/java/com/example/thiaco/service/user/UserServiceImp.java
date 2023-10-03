@@ -8,13 +8,15 @@ import com.example.thiaco.repository.RoleRepository;
 import com.example.thiaco.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -85,10 +87,7 @@ public class UserServiceImp implements IUserService {
         return roleRepository.save(role);
     }
 
-    //Tự động tìm kiếm dưới db
-    //                    Khi thông tin đăng nhập được gửi đến "/login" (qua mẫu đăng nhập), Spring Security
-//                    xử lý quá trình xác thực bằng cách gọi phương thức loadUserByUsername trong service
-//                    hoặc provider xác thực (có thể triển khai bởi bạn).
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User curUser = userRepository.findByUsername(username);
@@ -101,6 +100,7 @@ public class UserServiceImp implements IUserService {
         }
 
     }
+
 
     private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
         Collection< ? extends GrantedAuthority> mapRoles = roles.stream()
