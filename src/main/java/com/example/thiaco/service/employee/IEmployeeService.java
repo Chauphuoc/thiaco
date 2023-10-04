@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public interface IEmployeeService extends IGeneralService<Employee,Long> {
     List<Employee> saveAll(List<Employee> products);
@@ -29,4 +30,8 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     void exportToExcel(HttpServletResponse response) throws IOException;
 
     Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable);
+
+    int existsByEmployee_id(Long employeeId);
+
+    int existsByCccd(String cccd);
 }

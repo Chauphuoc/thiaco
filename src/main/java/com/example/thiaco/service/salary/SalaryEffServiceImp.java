@@ -1,5 +1,6 @@
 package com.example.thiaco.service.salary;
 
+import com.example.thiaco.dto.SalaryEffDTO;
 import com.example.thiaco.model.department.Department;
 import com.example.thiaco.model.salary.SalaryCoEfficient;
 import com.example.thiaco.repository.SalaryCoEffRepository;
@@ -48,5 +49,15 @@ public class SalaryEffServiceImp implements ISalaryEffService{
     @Override
     public List<SalaryCoEfficient> getSalaryCoEfficientsByDeletedIsFalse() {
         return salaryCoEffRepository.getSalaryCoEfficientsByDeletedIsFalse();
+    }
+
+    @Override
+    public void create(SalaryEffDTO salaryEffDTO) {
+        SalaryCoEfficient salaryCoEfficient = new SalaryCoEfficient();
+        salaryCoEfficient.setDepartment(salaryEffDTO.getDepartmentDTO().toDepartment());
+        salaryCoEfficient.setYear(salaryEffDTO.getYear());
+        salaryCoEfficient.setSalaryEfficientAmount(salaryEffDTO.getSalaryEfficientAmount());
+        salaryCoEffRepository.save(salaryCoEfficient);
+
     }
 }

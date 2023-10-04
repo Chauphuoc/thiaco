@@ -1,5 +1,6 @@
 package com.example.thiaco.service.salary;
 
+import com.example.thiaco.dto.SalaryEffDTO;
 import com.example.thiaco.model.department.Department;
 import com.example.thiaco.model.salary.SalaryCoEfficient;
 import com.example.thiaco.service.IGeneralService;
@@ -10,4 +11,6 @@ public interface ISalaryEffService extends IGeneralService<SalaryCoEfficient,Lon
     List<SalaryCoEfficient> findSalaryCoEfficientsByDepartment(Department department);
 
     List<SalaryCoEfficient> getSalaryCoEfficientsByDeletedIsFalse();
+
+    void create(SalaryEffDTO salaryEffDTO);
 }

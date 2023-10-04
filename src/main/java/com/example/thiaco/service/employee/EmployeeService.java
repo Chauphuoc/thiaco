@@ -381,6 +381,15 @@ public class EmployeeService implements IEmployeeService {
         return employees;
     }
 
+    @Override
+    public int existsByEmployee_id(Long employeeId) {
+        return employeeRepository.existsByEmployee_id(employeeId);
+    }
+
+    @Override
+    public int existsByCccd(String citizenCardNumber) {
+        return employeeRepository.existsByCccd(citizenCardNumber);
+    }
 
 
 }
