@@ -16,9 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class UserResDTO {
-    private Long id;
 
     private String username;
 
-    private List<RoleDTO> roleDTOs;
+    private String role;
 }

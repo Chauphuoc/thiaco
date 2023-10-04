@@ -1,6 +1,7 @@
 package com.example.thiaco.model.user;
 
 import com.example.thiaco.dto.RoleDTO;
+import com.example.thiaco.enums.ERole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,19 +19,12 @@ import java.util.List;
 @Table(name = "roles")
 @Accessors(chain = true)
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable=false, unique=true)
-    private String name;
-
-    @ManyToMany(mappedBy="roles")
-    private List<User> users;
-
-    public RoleDTO toRoleDTO() {
-        return new RoleDTO()
-                .setId(id)
-                .setName(name);
-    }
+    private String code;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ERole name;
 }

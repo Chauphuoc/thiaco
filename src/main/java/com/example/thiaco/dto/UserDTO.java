@@ -15,11 +15,13 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserDTO {
     private Long id;
-    @NotEmpty(message = "Username không được để trống")
     private String username;
-    @NotEmpty(message = "Password không được để trống")
     private String password;
 
+    public UserDTO(Long id, String username) {
+        this.id = id;
+        this.username = username;
+    }
 
     public User toUser() {
         return new User()

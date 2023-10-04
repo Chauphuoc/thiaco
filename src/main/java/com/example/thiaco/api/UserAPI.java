@@ -24,14 +24,14 @@ public class UserAPI {
     @Autowired
     private IUserService userService;
 
-    @GetMapping("/index")
-    public ResponseEntity<?> getUserLogin(Authentication authentication) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String userName = userDetails.getUsername();
-            User user = userService.findByUsername(userName);
-        UserResDTO userResDTO = user.toUserResDTO();
-        return new ResponseEntity<>(userResDTO, HttpStatus.OK);
-    }
+//    @GetMapping("/index")
+//    public ResponseEntity<?> getUserLogin(Authentication authentication) {
+//            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//            String userName = userDetails.getUsername();
+//            User user = userService.findByUsername(userName);
+//        UserResDTO userResDTO = user.toUserResDTO();
+//        return new ResponseEntity<>(userResDTO, HttpStatus.OK);
+//    }
 
 
     @GetMapping

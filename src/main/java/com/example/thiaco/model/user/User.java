@@ -32,12 +32,9 @@ public class User extends BaseEntity {
     @Column(nullable = true)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            name="users_roles",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-    private List<Role> roles = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    private Role role;
 
     public UserDTO toUserDTO(){
         return new UserDTO()
@@ -46,10 +43,4 @@ public class User extends BaseEntity {
                 .setPassword(password);
     }
 
-    public UserResDTO toUserResDTO() {
-        return new UserResDTO()
-                .setId(id)
-                .setUsername(username)
-                .setRoleDTOs(roles.stream().map(role -> role.toRoleDTO()).collect(Collectors.toList()));
-    }
 }
