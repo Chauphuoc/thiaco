@@ -23,12 +23,12 @@ public class SalaryEffServiceImp implements ISalaryEffService{
 
     @Override
     public Optional<SalaryCoEfficient> findById(Long id) {
-        return Optional.empty();
+        return salaryCoEffRepository.findById(id);
     }
 
     @Override
     public SalaryCoEfficient save(SalaryCoEfficient salaryCoEfficient) {
-        return null;
+        return salaryCoEffRepository.save(salaryCoEfficient);
     }
 
     @Override
@@ -52,12 +52,13 @@ public class SalaryEffServiceImp implements ISalaryEffService{
     }
 
     @Override
-    public void create(SalaryEffDTO salaryEffDTO) {
+    public SalaryCoEfficient create(SalaryEffDTO salaryEffDTO) {
         SalaryCoEfficient salaryCoEfficient = new SalaryCoEfficient();
         salaryCoEfficient.setDepartment(salaryEffDTO.getDepartmentDTO().toDepartment());
         salaryCoEfficient.setYear(salaryEffDTO.getYear());
         salaryCoEfficient.setSalaryEfficientAmount(salaryEffDTO.getSalaryEfficientAmount());
         salaryCoEffRepository.save(salaryCoEfficient);
-
+        SalaryCoEfficient current = salaryCoEffRepository.findSalaryCoEfficientByDepartmentYearSalary(salaryEffDTO.getDepartmentDTO().getDepartment_name(), salaryEffDTO.getYear(), salaryEffDTO.getSalaryEfficientAmount());
+        return current;
     }
 }

@@ -12,5 +12,5 @@ public interface ISalaryEffService extends IGeneralService<SalaryCoEfficient,Lon
 
     List<SalaryCoEfficient> getSalaryCoEfficientsByDeletedIsFalse();
 
-    void create(SalaryEffDTO salaryEffDTO);
+    public SalaryCoEfficient create(SalaryEffDTO salaryEffDTO);
 }

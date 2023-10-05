@@ -28,42 +28,16 @@ public class HomeController {
     @Autowired
     private EmailSender emailSender;
 
-    @GetMapping("/index")
-    public String home() {
+//    @GetMapping("/index")
+//    public String home() {
 //        String link = "http://localhost:8080/index";
 //        emailSender.sendEmail("chauphuoc1996@gmail.com",
 //                buildEmail("Mr.Phuoc", link)
 //        );
-        return "index";
-    }
-
-
-    @GetMapping("/login")
-    public String showLoginPage(HttpServletRequest request, HttpServletResponse response) {
-
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String showRegisterPage(Model model) {
-        UserDTO userDTO = new UserDTO();
-        model.addAttribute("user", userDTO);
-        return "register";
-    }
-
-//    @PostMapping("/register/save")
-//    public String registration(@Valid @ModelAttribute ("user") UserDTO userDTO, BindingResult bindingResult,Model model) {
-//        User curUser = userService.findByUsername(userDTO.getUsername());
-//        if (curUser != null && curUser.getUsername() != null && !curUser.getUsername().isEmpty()) {
-//            bindingResult.rejectValue("username", null, "There is already an account registered with the same email");
-//        }
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("user", userDTO);
-//            return "register";
-//        }
-//        userService.saveUser(userDTO);
-//        return "redirect:/register?success";
+//        return "index";
 //    }
+
+
 
     @GetMapping("/admin")
     public String users(Model model){

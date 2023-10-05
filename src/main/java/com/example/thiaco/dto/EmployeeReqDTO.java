@@ -59,7 +59,7 @@ public class EmployeeReqDTO   {
     private String relationShip;
     private String SocialInsuranceNumber;
     @NotEmpty(message = "Số điện thoại không được để trống")
-    @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số")
+    @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số gồm 10 hoặc 11 số")
     private String phoneNumber;
 
     private String idCardNumber;
