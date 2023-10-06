@@ -114,11 +114,13 @@ public class EmployeeService implements IEmployeeService {
         employee.setEducationLevel(employeeReqUpDTO.getEducationLevel());
         employee.setCulturalLevel(employeeReqUpDTO.getCulturalLevel());
         employee.setHomeTown(employeeReqUpDTO.getHomeTown());
-        employee.setAccommodation(employeeReqUpDTO.getAccommodation());
+//        employee.setAccommodation(employeeReqUpDTO.getAccommodation());
         employee.setMaritalStatus(employeeReqUpDTO.getMaritalStatus());
         employee.setPosition(employeeReqUpDTO.getPosition());
         employee.setJoiningday(convertStringToLocalDateImp(employeeReqUpDTO.getJoiningday())  );
         employee.setEmploymentContractDate(convertStringToLocalDateImp(employeeReqUpDTO.getEmploymentContractDate()) );
+        employee.setSocialInsuranceMonth(employeeReqUpDTO.getSocialInsuranceMonth());
+        employee.setRelationShip(employeeReqUpDTO.getRelationShip());
         employee.setSocialInsuranceNumber(employeeReqUpDTO.getSocialInsuranceNumber());
         employee.setPhoneNumber(employeeReqUpDTO.getPhoneNumber());
         employee.setIdCardNumber(employeeReqUpDTO.getIdCardNumber());
@@ -225,27 +227,30 @@ public class EmployeeService implements IEmployeeService {
                     String educationLevel = String.valueOf(row.getCell(8));
                     String culturalLevel = String.valueOf(row.getCell(9));
                     String homeTown =String.valueOf(row.getCell(10));
-                    String accommodation =String.valueOf(row.getCell(11));
-                    String maritalStatus = String.valueOf(row.getCell(12));
-                    String position = String.valueOf(row.getCell(13));
-                    String joiningday = String.valueOf(row.getCell(14));
-                    String employmentContractDate= String.valueOf(row.getCell(15));
-                    int  socialInsuranceMonth = (int)Double.parseDouble(String.valueOf(row.getCell(16))) ;
-                    String relationShip = String.valueOf(row.getCell(17));
-                    String socialInsuranceNumber= String.valueOf(row.getCell(18));
-                    String phoneNumber= String.valueOf(row.getCell(19));
-                    String idCardNumber= String.valueOf(row.getCell(20));;
-                    String citizenCardNumber= String.valueOf(row.getCell(21));;
-                    String dateOfIssue= String.valueOf(row.getCell(22));;
-                    String placeOfIssue= String.valueOf(row.getCell(23));
+//                    String accommodation =String.valueOf(row.getCell(11));
+                    String maritalStatus = String.valueOf(row.getCell(11));
+                    String position = String.valueOf(row.getCell(12));
+                    String joiningday = String.valueOf(row.getCell(13));
+                    String employmentContractDate= String.valueOf(row.getCell(14));
+                    String  socialInsuranceMonth = String.valueOf(row.getCell(15)) ;
+                    String relationShip = String.valueOf(row.getCell(16));
+                    String socialInsuranceNumber= String.valueOf(row.getCell(17));
+                    String phoneNumber= String.valueOf(row.getCell(18));
+                    String idCardNumber= String.valueOf(row.getCell(19));;
+                    String citizenCardNumber= String.valueOf(row.getCell(20));;
+                    String dateOfIssue= String.valueOf(row.getCell(21));;
+                    String placeOfIssue= String.valueOf(row.getCell(22));
 
-                    String address = String.valueOf(row.getCell(25));
-
-                    int department_id = (int) Double.parseDouble(String.valueOf(row.getCell(24)));
-                    //Set dữ liệu
-                    String base_salary = String.valueOf(row.getCell(26));
-                    String ef_salary = String.valueOf(row.getCell(27));
-                    String salaryAmount = String.valueOf(row.getCell(28));
+                    int department_id = (int) Double.parseDouble(String.valueOf(row.getCell(23)));
+                    String address = String.valueOf(row.getCell(24));
+                    String ward = String.valueOf(row.getCell(25));
+                    String district = String.valueOf(row.getCell(26));
+                    String province = String.valueOf(row.getCell(27));
+                    String yearOfWork = String.valueOf(row.getCell(28));
+                    String otherDetail = String.valueOf(row.getCell(29));
+                    String base_salary = String.valueOf(row.getCell(30));
+                    String ef_salary = String.valueOf(row.getCell(31));
+                    String salaryAmount = String.valueOf(row.getCell(32));
 
                     Optional<Department> optionalDepartment = departmentRepository.findById((long) department_id);
                     Department department = optionalDepartment.get();
@@ -260,10 +265,9 @@ public class EmployeeService implements IEmployeeService {
                     employee.setQualification(qualification);
                     employee.setEducationLevel(educationLevel);
                     employee.setCulturalLevel(culturalLevel);
-                    employee.setEducationLevel(educationLevel);
-                    employee.setCulturalLevel(culturalLevel);
+
                     employee.setHomeTown(homeTown);
-                    employee.setAccommodation(accommodation);
+
                     employee.setMaritalStatus(maritalStatus);
                     employee.setPosition(position);
                     employee.setJoiningday(EmployeeService.convertStringToLocalDateImp(joiningday));
@@ -280,6 +284,9 @@ public class EmployeeService implements IEmployeeService {
 
                     LocationRegion locationRegion = new LocationRegion();
                     locationRegion.setAddress(address);
+                    locationRegion.setWardName(ward);
+                    locationRegion.setDistrictName(district);
+                    locationRegion.setProvinceName(province);
                     employee.setLocationRegion(locationRegion);
                     locationRegion.setEmployee(employee);
                     locationRegionRepository.save(locationRegion);
@@ -288,6 +295,8 @@ public class EmployeeService implements IEmployeeService {
                     salary.setBasicSalary(BigDecimal.valueOf(Double.valueOf(base_salary)));
                     salary.setSalaryCoEfficient(BigDecimal.valueOf(Double.valueOf(ef_salary)));
                     salary.setSalaryAmount(BigDecimal.valueOf(Double.valueOf(salaryAmount)) );
+                    salary.setOtherDetails(otherDetail);
+                    salary.setYearOfWork(yearOfWork);
                     salary.setEmployee(employee);
                     salaryRepository.save(salary);
 

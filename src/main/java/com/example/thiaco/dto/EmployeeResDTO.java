@@ -31,7 +31,7 @@ public class EmployeeResDTO {
     private String position;
     private LocalDate joiningday;
     private LocalDate employmentContractDate;
-    private int socialInsuranceMonth;
+    private String socialInsuranceMonth;
     private String relationShip;
     private String socialInsuranceNumber;
     private String phoneNumber;
@@ -46,7 +46,7 @@ public class EmployeeResDTO {
     public EmployeeResDTO(Long id, Long employee_id, String fullName, String lastName, LocalDate dateOfBirth, String gender, int age,
                           String placeOfBirth, String qualification, String educationLevel, String culturalLevel, String homeTown, String accommodation
                           , String maritalStatus, String position, LocalDate joiningday
-                          , LocalDate employmentContractDate, int socialInsuranceMonth, String relationShip
+                          , LocalDate employmentContractDate, String socialInsuranceMonth, String relationShip
                           , String socialInsuranceNumber, String phoneNumber, String idCardNumber, String citizenCardNumber, LocalDate dateOfIssue, String placeOfIssue
                           , Department department, LocationRegion locationRegion
                           , Salary salary

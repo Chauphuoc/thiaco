@@ -43,4 +43,11 @@ public class User extends BaseEntity {
                 .setPassword(password);
     }
 
+
+    public UserResDTO userResDTO() {
+        return new UserResDTO()
+                .setUsername(username)
+                .setRole(role.getCode());
+    }
+
 }

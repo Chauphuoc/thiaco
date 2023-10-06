@@ -37,7 +37,7 @@ public class EmployeeDTO {
     private String position;
     private String joiningday;
     private String employmentContractDate;
-    private int socialInsuranceMonth;
+    private String socialInsuranceMonth;
     private String relationShip;
     private String socialInsuranceNumber;
     private String phoneNumber;

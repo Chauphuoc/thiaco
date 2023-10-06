@@ -30,7 +30,7 @@ public class Salary extends BaseEntity
 //    @JoinColumn(name = "nhanVien_id",referencedColumnName = "id",nullable = true)
 //    private Employee employee;
     @Column(name = "namTinhLuong",nullable = false)
-    private int yearOfWork;
+    private String yearOfWork;
     @Column(name = "tienLuong",precision = 10,scale = 0,nullable = false)
     private BigDecimal salaryAmount;
     @Column(name = "hsoLuongHienTai",nullable = false)

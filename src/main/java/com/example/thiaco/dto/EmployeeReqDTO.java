@@ -45,9 +45,9 @@ public class EmployeeReqDTO   {
     private String culturalLevel;
     @NotEmpty(message = "Quê quán không được để trống")
     private String homeTown;
-    @NotEmpty(message = "Chỗ ở không được để trống")
-    private String accommodation;
 
+    private String accommodation;
+    @NotEmpty(message = "Tình trạng hôn nhân không được để trống")
     private String MaritalStatus;
     @NotEmpty(message = "Vị trí nhân viên không được để trống")
     private String position;
@@ -55,16 +55,22 @@ public class EmployeeReqDTO   {
     private String joiningday;
     @NotEmpty(message = "Ngày ký hợp đồng không được để trống")
     private String EmploymentContractDate;
-    private int SocialInsuranceMonth;
+
+    @NotEmpty(message = "Tháng đóng bảo hiểm xã hội không được để trống")
+    private String SocialInsuranceMonth;
+
+    @NotEmpty(message = "Mối quan hệ không được để trống")
     private String relationShip;
+    @NotEmpty(message = "Số sổ bảo hiểm không được để trống")
     private String SocialInsuranceNumber;
     @NotEmpty(message = "Số điện thoại không được để trống")
     @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số gồm 10 hoặc 11 số")
     private String phoneNumber;
-
+    @NotEmpty(message = "Số CMND không được để trống")
+    @Pattern(regexp = "^\\d{9}$",message = "CMND phải là 9 số")
     private String idCardNumber;
     @NotEmpty(message = "CCCD không được để trống")
-    @Pattern(regexp = "^\\d{12}$",message = "CCCD phải là 12 số")
+    @Pattern(regexp = "^\\d{9,12}$",message = "CCCD phải là 12 số, CMND phải là 9 số")
     private String citizenCardNumber;
     @NotEmpty(message = "Ngày cấp CCCD không được để trống")
     private String dateOfIssue;

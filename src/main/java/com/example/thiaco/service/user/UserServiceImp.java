@@ -47,18 +47,6 @@ public class UserServiceImp implements IUserService {
 
     }
 
-//    @Override
-//    public void saveUser(UserDTO userDTO) {
-//        User user = new User();
-//        user.setUsername(userDTO.getUsername());
-//        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-//        Role role = roleRepository.findByName("ROLE_USER");
-//        if (role == null) {
-//            role = checkRoleExist();
-//        }
-//        user.setRoles(Arrays.asList(role));
-//        userRepository.save(user);
-//    }
 
     @Override
     public User getByUsername(String username) {
@@ -77,33 +65,7 @@ public class UserServiceImp implements IUserService {
             return userDTOS;
     }
 
-//    private Role checkRoleExist() {
-//        Role role = new Role();
-//        role.setName("ROLE_USER");
-//        return roleRepository.save(role);
-//    }
 
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User curUser = userRepository.findByUsername(username);
-//        if (curUser != null) {
-//            return new org.springframework.security.core.userdetails.User(curUser.getUsername(),
-//                    curUser.getPassword(),
-//                    mapRolesToAuthorities(curUser.getRoles()));
-//        } else {
-//            throw new UsernameNotFoundException("Invalid username or password");
-//        }
-//
-//    }
-
-//
-//    private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
-//        Collection< ? extends GrantedAuthority> mapRoles = roles.stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName()))
-//                .collect(Collectors.toList());
-//        return mapRoles;
-//    }
 
     @Override
     public List<User> findAll() {

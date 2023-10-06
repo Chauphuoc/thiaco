@@ -64,7 +64,7 @@ public class Employee extends BaseEntity {
     @Column(name = "ngaykyhd")
     private LocalDate employmentContractDate;
     @Column(name = "thangdongbhxh")
-    private int socialInsuranceMonth;
+    private String socialInsuranceMonth;
     @Column(name = "moiquanhe")
     private String relationShip;
     @Column(name = "so_sobhxh")
