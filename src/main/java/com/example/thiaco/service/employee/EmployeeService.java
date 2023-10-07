@@ -2,6 +2,7 @@ package com.example.thiaco.service.employee;
 
 import com.example.thiaco.dto.EmployeeReqUpDTO;
 import com.example.thiaco.dto.EmployeeResDTO;
+import com.example.thiaco.exception.DataInputException;
 import com.example.thiaco.exception.ResourceNotFoundException;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
@@ -96,14 +97,20 @@ public class EmployeeService implements IEmployeeService {
         return employeeRepository.findEmployeeByEmployeeId(employeeId);
     }
     @Override
-    public Employee update(EmployeeReqUpDTO employeeReqUpDTO) {
+    public Employee update(Long id, EmployeeReqUpDTO employeeReqUpDTO) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeReqUpDTO.getId());
         if (!optionalEmployee.isPresent()) {
             throw new ResourceNotFoundException("Not found employee");
         }
         //update gửi lên định dạng ngày tháng năm
         Employee employee = optionalEmployee.get();
+
+        Employee checkMnvEmployee = employeeRepository.findEmployeeByEmployeeId(employeeReqUpDTO.getEmployee_id());
+        if (checkMnvEmployee != null && !checkMnvEmployee.getId().equals(id)) {
+            throw new DataInputException("Mã nhân viên đã bị trùng. Xin vui lòng nhập lại!");
+        }
         employee.setEmployee_id(employeeReqUpDTO.getEmployee_id());
+
         employee.setFullName(employeeReqUpDTO.getFullName());
         employee.setLastName(employeeReqUpDTO.getLastName());
         employee.setDateOfBirth(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfBirth()));
@@ -123,8 +130,19 @@ public class EmployeeService implements IEmployeeService {
         employee.setRelationShip(employeeReqUpDTO.getRelationShip());
         employee.setSocialInsuranceNumber(employeeReqUpDTO.getSocialInsuranceNumber());
         employee.setPhoneNumber(employeeReqUpDTO.getPhoneNumber());
+
+        Employee checkedCmndEmployee = employeeRepository.findEmployeeByIdCardNumber(employeeReqUpDTO.getIdCardNumber());
+        if (checkedCmndEmployee != null && !checkedCmndEmployee.getId().equals(id)) {
+            throw new DataInputException("Cmnd đã bị trùng. Xin vui lòng nhập lại!");
+        }
         employee.setIdCardNumber(employeeReqUpDTO.getIdCardNumber());
+
+        Employee checkedCccdEmployee = employeeRepository.findEmployeeByCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
+        if (checkedCccdEmployee != null && !checkedCccdEmployee.getId().equals(id)) {
+            throw new DataInputException("Cccd đã bị trùng. Xin vui lòng nhập lại!");
+        }
         employee.setCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
+
         employee.setDateOfIssue(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssue()));
         employee.setPlaceOfIssue(employeeReqUpDTO.getPlaceOfIssue());
 
@@ -372,7 +390,6 @@ public class EmployeeService implements IEmployeeService {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=employee" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
@@ -398,6 +415,11 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public int existsByCccd(String citizenCardNumber) {
         return employeeRepository.existsByCccd(citizenCardNumber);
+    }
+
+    @Override
+    public int existsByCmnd(String cmnd) {
+        return employeeRepository.existsByCmnd(cmnd);
     }
 
 

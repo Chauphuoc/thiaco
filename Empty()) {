@@ -1,0 +1,18 @@
+[33m533ea63[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m bổ sung thêm trường file excel, thay đổi kiểu dữ liệu số tháng đóng bhxh
+[33mec9eb7e[m update add, delete he so luong
+[33mcda8d2d[m fix check  employeeId and CCCD exist
+[33mef6ffa2[m[33m ([m[1;33mtag: v1.0.0[m[33m)[m fix database, fix security
+[33m3d204b8[m add excel file
+[33mdb24f7a[m create api register
+[33m74f6d0b[m get role user logging
+[33mb5627ca[m delete ids
+[33m64e4a12[m fix update
+[33m7faa4d3[m fix convert string to date Æwhen import file
+[33mee1264e[m finish
+[33m96b8551[m latest update
+[33m1414847[m update
+[33mb37df21[m convert date=>localDate, request and response with String not use date
+[33m6f58170[m validate add employee, get all department, get all salary eff
+[33m53becc2[m create
+[33m0794131[m get all employee
+[33mb53aaa9[m Initial commit

@@ -31,7 +31,6 @@ public class JwtService {
                 .setSubject((principal.getUsername())) // chủ đề (username)
                 .addClaims(claims) // thông tin tùy chon dưới dạng map (fullName và role)
 
-
 //                thời điểm token được tạo ra
                 .setIssuedAt(new Date())
 //               set time chết của token = hôm nay, tính từ thời điểm tạo + time set ở JWT_TOKEN_VALIDITY, tính theo ms

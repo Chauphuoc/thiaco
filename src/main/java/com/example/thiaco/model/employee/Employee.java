@@ -31,7 +31,7 @@ public class Employee extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "manv", nullable = false)
+    @Column(name = "manv", nullable = false,unique = true)
     private Long employee_id;
     @Column(name = "hovanten", nullable = false)
     private String fullName;

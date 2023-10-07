@@ -44,7 +44,6 @@ public class EmployeeReqUpDTO {
     private String culturalLevel;
     @NotEmpty(message = "Quê quán không được để trống")
     private String homeTown;
-
     private String accommodation;
     @NotEmpty(message = "Tình trạng hôn nhân không được để trống")
     private String maritalStatus;

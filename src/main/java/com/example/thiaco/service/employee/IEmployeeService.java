@@ -21,7 +21,7 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
 
 
     Employee findEmployeeByEmployeeId(Long employeeId);
-    Employee update(EmployeeReqUpDTO employeeReqDTO);
+    Employee update(Long id,EmployeeReqUpDTO employeeReqDTO);
 
     List<Employee> deleteEmployee(Employee employee);
 
@@ -34,4 +34,6 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     int existsByEmployee_id(Long employeeId);
 
     int existsByCccd(String cccd);
+
+    int existsByCmnd(String cmnd);
 }
