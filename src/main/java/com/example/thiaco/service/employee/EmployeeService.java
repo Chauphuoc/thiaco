@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -113,7 +114,16 @@ public class EmployeeService implements IEmployeeService {
 
         employee.setFullName(employeeReqUpDTO.getFullName());
         employee.setLastName(employeeReqUpDTO.getLastName());
-        employee.setDateOfBirth(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfBirth()));
+
+        String dataPatternRegexddMMyyyy = "^(\\d{2})-(\\d{2})-(\\d{4})$";
+        String dataPatternRegexyyyyMMdd = "^(\\d{4})-(\\d{2})-(\\d{2})$";
+        if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfBirth())) {
+            employee.setDateOfBirth(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfBirth()));
+        } else {
+            employee.setDateOfBirth(convertStringToLocalDate(employeeReqUpDTO.getDateOfBirth()));
+        }
+
+
         employee.setGender(employeeReqUpDTO.getGender());
         employee.setAge(employeeReqUpDTO.getAge());
         employee.setPlaceOfBirth(employeeReqUpDTO.getPlaceOfBirth());
@@ -124,8 +134,20 @@ public class EmployeeService implements IEmployeeService {
 //        employee.setAccommodation(employeeReqUpDTO.getAccommodation());
         employee.setMaritalStatus(employeeReqUpDTO.getMaritalStatus());
         employee.setPosition(employeeReqUpDTO.getPosition());
-        employee.setJoiningday(convertStringToLocalDateImp(employeeReqUpDTO.getJoiningday())  );
-        employee.setEmploymentContractDate(convertStringToLocalDateImp(employeeReqUpDTO.getEmploymentContractDate()) );
+
+        if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getJoiningday())) {
+            employee.setJoiningday(convertStringToLocalDateImp(employeeReqUpDTO.getJoiningday()));
+        } else {
+            employee.setJoiningday(convertStringToLocalDate(employeeReqUpDTO.getJoiningday()));
+        }
+
+        if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getEmploymentContractDate())) {
+            employee.setEmploymentContractDate(convertStringToLocalDateImp(employeeReqUpDTO.getEmploymentContractDate()));
+        } else {
+            employee.setEmploymentContractDate(convertStringToLocalDate(employeeReqUpDTO.getEmploymentContractDate()) );
+        }
+
+
         employee.setSocialInsuranceMonth(employeeReqUpDTO.getSocialInsuranceMonth());
         employee.setRelationShip(employeeReqUpDTO.getRelationShip());
         employee.setSocialInsuranceNumber(employeeReqUpDTO.getSocialInsuranceNumber());
@@ -143,7 +165,13 @@ public class EmployeeService implements IEmployeeService {
         }
         employee.setCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
 
-        employee.setDateOfIssue(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssue()));
+        if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfIssue())) {
+            employee.setDateOfIssue(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssue()));
+        } else {
+            employee.setDateOfIssue(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssue()));
+
+        }
+
         employee.setPlaceOfIssue(employeeReqUpDTO.getPlaceOfIssue());
 
 
