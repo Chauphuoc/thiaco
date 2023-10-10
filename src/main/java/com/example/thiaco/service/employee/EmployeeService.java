@@ -177,7 +177,7 @@ public class EmployeeService implements IEmployeeService {
 
         Optional<Department> departmentOptional = departmentRepository.findById(employeeReqUpDTO.getDepartmentDTO().getId());
         if (!departmentOptional.isPresent()) {
-            throw new ResourceNotFoundException("Department is not found");
+            throw new ResourceNotFoundException("Không tìm thấy phòng ban");
         }
         Department curDepartment = departmentOptional.get();
         curDepartment.setDepartmentName(employeeReqUpDTO.getDepartmentDTO().getDepartment_name());
@@ -187,7 +187,7 @@ public class EmployeeService implements IEmployeeService {
 
         Optional<LocationRegion> optionalLocationRegion = locationRegionRepository.findById(employeeReqUpDTO.getLocationRegionDTO().getId());
         if (!optionalLocationRegion.isPresent()) {
-            throw new ResourceNotFoundException("Address is not found");
+            throw new ResourceNotFoundException("Địa chỉ không được tìm thấy");
         }
         LocationRegion curLocationRegion = optionalLocationRegion.get();
         curLocationRegion.setAddress(employeeReqUpDTO.getLocationRegionDTO().getAddress());
@@ -202,7 +202,7 @@ public class EmployeeService implements IEmployeeService {
 
         Optional<Salary> optionalSalary = salaryRepository.findById(employeeReqUpDTO.getSalaryDTO().getId());
         if (!optionalLocationRegion.isPresent()) {
-            throw new ResourceNotFoundException("Salary is not found");
+            throw new ResourceNotFoundException("Lương không được tìm thấy");
         }
         Salary curSalary = optionalSalary.get();
         curSalary.setYearOfWork(employeeReqUpDTO.getSalaryDTO().getYearOfWork());
@@ -226,28 +226,7 @@ public class EmployeeService implements IEmployeeService {
         return employeeList;
     }
 
-    public static Date getDateByString(String dateString){
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        try {
-            // Parse the input date string into a Date object
-            Date date = inputDateFormat.parse(dateString);
-
-            // Format the Date object back into a string
-            String formattedDate = outputDateFormat.format(date);
-
-            System.out.println("Original date string: " + dateString);
-            System.out.println("Parsed Date: " + date);
-            System.out.println("Formatted date string: " + formattedDate);
-
-            return date;
-        } catch (ParseException e) {
-            System.out.println("Error occurred while parsing the date: " + e.getMessage());
-            return null;
-        }
-
-    }
 
     @Override
     public void importToDb(MultipartFile multipartfile) {
