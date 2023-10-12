@@ -32,10 +32,7 @@ public class EmployeeReqDTO   {
     private String dateOfBirth;
     @NotEmpty(message = "Giới tính không được để trống")
     private String gender;
-    @NotNull(message = "Tuổi không được để trống")
-    @Min(value = 1, message = "Tuổi phải lớn hơn hoặc bằng 1")
-    @Max(value = 100, message = "Tuổi phải nhỏ hơn hoặc bằng 100")
-    private int age;
+
     @NotEmpty(message = "Nơi sinh không được để trống")
     private String placeOfBirth;
     @NotEmpty(message = "Trình độ chuyên môn không được để trống")
@@ -47,7 +44,6 @@ public class EmployeeReqDTO   {
     @NotEmpty(message = "Quê quán không được để trống")
     private String homeTown;
 
-    private String accommodation;
     @NotEmpty(message = "Tình trạng hôn nhân không được để trống")
     private String MaritalStatus;
     @NotEmpty(message = "Vị trí nhân viên không được để trống")

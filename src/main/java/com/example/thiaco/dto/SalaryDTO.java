@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 public class SalaryDTO {
 
     private Long id;
-    private String yearOfWork;
+    private BigDecimal yearOfWork;
 
     private BigDecimal salaryAmount;
 
@@ -33,7 +33,7 @@ public class SalaryDTO {
     public Salary toSalary() {
         return new Salary()
                 .setId(id)
-                .setYearOfWork(yearOfWork)
+//                .setYearOfWork(yearOfWork)
                 .setSalaryAmount(salaryAmount)
                 .setSalaryCoEfficient(salaryCoEfficient)
                 .setOtherDetails(otherDetails)

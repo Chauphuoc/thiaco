@@ -26,7 +26,7 @@ public class EmployeeResDTO {
     private String educationLevel;
     private String culturalLevel;
     private String homeTown;
-    private String accommodation;
+//    private String accommodation;
     private String maritalStatus;
     private String position;
     private LocalDate joiningday;
@@ -43,8 +43,8 @@ public class EmployeeResDTO {
     private LocationRegionDTO locationRegionDTO;
     private SalaryDTO salaryDTO;
 
-    public EmployeeResDTO(Long id, Long employee_id, String fullName, String lastName, LocalDate dateOfBirth, String gender, int age,
-                          String placeOfBirth, String qualification, String educationLevel, String culturalLevel, String homeTown, String accommodation
+    public EmployeeResDTO(Long id, Long employee_id, String fullName, String lastName, LocalDate dateOfBirth, String gender,
+                          String placeOfBirth, String qualification, String educationLevel, String culturalLevel, String homeTown
                           , String maritalStatus, String position, LocalDate joiningday
                           , LocalDate employmentContractDate, String socialInsuranceMonth, String relationShip
                           , String socialInsuranceNumber, String phoneNumber, String idCardNumber, String citizenCardNumber, LocalDate dateOfIssue, String placeOfIssue
@@ -58,13 +58,11 @@ public class EmployeeResDTO {
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
-        this.age = age;
         this.placeOfBirth = placeOfBirth;
         this.qualification = qualification;
         this.educationLevel = educationLevel;
         this.culturalLevel = culturalLevel;
         this.homeTown = homeTown;
-        this.accommodation = accommodation;
         this.maritalStatus = maritalStatus;
         this.position = position;
         this.joiningday = joiningday;
@@ -79,6 +77,6 @@ public class EmployeeResDTO {
         this.placeOfIssue = placeOfIssue;
         this.departmentDTO = department.toDepartmentDTO();
         this.locationRegionDTO = locationRegion.toLocationRegionDTO();
-        this.salaryDTO = salary.toSalaryDTO();
+        this.salaryDTO = salary.toSalaryDTO(salary);
     }
 }

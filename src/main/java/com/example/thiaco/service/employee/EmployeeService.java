@@ -124,20 +124,32 @@ public class EmployeeService implements IEmployeeService {
         String dataPatternRegexddMMyyyy = "^(\\d{2})-(\\d{2})-(\\d{4})$";
         String dataPatternRegexyyyyMMdd = "^(\\d{4})-(\\d{2})-(\\d{2})$";
         if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfBirth())) {
-            employee.setDateOfBirth(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfBirth()));
+            LocalDate dateOfBirth = convertStringToLocalDateImp(employeeReqUpDTO.getDateOfBirth());
+            LocalDate current = LocalDate.now();
+            if (dateOfBirth.isAfter(current)) {
+                throw new DataInputException("Ngày sinh nhập không hợp lệ. Xin vui lòng nhập lại");
+            } else {
+                employee.setDateOfBirth(dateOfBirth);
+            }
         } else {
-            employee.setDateOfBirth(convertStringToLocalDate(employeeReqUpDTO.getDateOfBirth()));
+            LocalDate dateOfBirth = convertStringToLocalDate(employeeReqUpDTO.getDateOfBirth());
+            LocalDate current = LocalDate.now();
+            if (dateOfBirth.isAfter(current)) {
+                throw new DataInputException("Ngày sinh nhập không hợp lệ. Xin vui lòng nhập lại");
+            } else {
+                employee.setDateOfBirth(dateOfBirth);
+            }
+
         }
 
 
         employee.setGender(employeeReqUpDTO.getGender());
-        employee.setAge(employeeReqUpDTO.getAge());
+
         employee.setPlaceOfBirth(employeeReqUpDTO.getPlaceOfBirth());
         employee.setQualification(employeeReqUpDTO.getQualification());
         employee.setEducationLevel(employeeReqUpDTO.getEducationLevel());
         employee.setCulturalLevel(employeeReqUpDTO.getCulturalLevel());
         employee.setHomeTown(employeeReqUpDTO.getHomeTown());
-//        employee.setAccommodation(employeeReqUpDTO.getAccommodation());
         employee.setMaritalStatus(employeeReqUpDTO.getMaritalStatus());
         employee.setPosition(employeeReqUpDTO.getPosition());
 
@@ -148,9 +160,23 @@ public class EmployeeService implements IEmployeeService {
         }
 
         if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getEmploymentContractDate())) {
-            employee.setEmploymentContractDate(convertStringToLocalDateImp(employeeReqUpDTO.getEmploymentContractDate()));
+            LocalDate contractDay = convertStringToLocalDateImp(employeeReqUpDTO.getEmploymentContractDate());
+            LocalDate current = LocalDate.now();
+            if (contractDay.isAfter(current)) {
+                throw new DataInputException("Ngày ký hợp đồng không hợp lệ. Xin vui lòng nhập lại");
+            } else {
+                employee.setEmploymentContractDate(contractDay);
+            }
+
         } else {
-            employee.setEmploymentContractDate(convertStringToLocalDate(employeeReqUpDTO.getEmploymentContractDate()) );
+            LocalDate contractDay = convertStringToLocalDate(employeeReqUpDTO.getEmploymentContractDate());
+            LocalDate current = LocalDate.now();
+            if (contractDay.isAfter(current)) {
+                throw new DataInputException("Ngày ký hợp đồng không hợp lệ. Xin vui lòng nhập lại");
+            } else {
+                employee.setEmploymentContractDate(contractDay);
+            }
+
         }
 
 
@@ -221,7 +247,7 @@ public class EmployeeService implements IEmployeeService {
             throw new ResourceNotFoundException("Lương không được tìm thấy");
         }
         Salary curSalary = optionalSalary.get();
-        curSalary.setYearOfWork(employeeReqUpDTO.getSalaryDTO().getYearOfWork());
+//        curSalary.setYearOfWork(employeeReqUpDTO.getSalaryDTO().getYearOfWork());
         curSalary.setBasicSalary(employeeReqUpDTO.getSalaryDTO().getBasicSalary());
         curSalary.setSalaryCoEfficient(employeeReqUpDTO.getSalaryDTO().getSalaryCoEfficient());
         curSalary.setOtherDetails(employeeReqUpDTO.getSalaryDTO().getOtherDetails());
@@ -262,45 +288,41 @@ public class EmployeeService implements IEmployeeService {
                     String lastName = String.valueOf(getValue(row.getCell(2)));
                     String dateOfBirth = String.valueOf(getValue(row.getCell(3)));
                     String gender = String.valueOf(getValue(row.getCell(4)));
-                    int age =  (int) Double.parseDouble(String.valueOf(row.getCell(5)));
-                    String placeOfBirth = String.valueOf(row.getCell(6));
-                    String qualification = String.valueOf(row.getCell(7));
-                    String educationLevel = String.valueOf(row.getCell(8));
-                    String culturalLevel = String.valueOf(row.getCell(9));
-                    String homeTown =String.valueOf(row.getCell(10));
-//                    String accommodation =String.valueOf(row.getCell(11));
-                    String maritalStatus = String.valueOf(row.getCell(11));
-                    String position = String.valueOf(row.getCell(12));
-                    String joiningday = String.valueOf(row.getCell(13));
-                    String employmentContractDate= String.valueOf(row.getCell(14));
-                    String  socialInsuranceMonth = String.valueOf(row.getCell(15)) ;
-                    String relationShip = String.valueOf(row.getCell(16));
-                    String socialInsuranceNumber= String.valueOf(row.getCell(17));
-                    String phoneNumber= String.valueOf(row.getCell(18));
-                    String idCardNumber= String.valueOf(row.getCell(19));;
-                    String citizenCardNumber= String.valueOf(row.getCell(20));;
-                    String dateOfIssue= String.valueOf(row.getCell(21));;
-                    String placeOfIssue= String.valueOf(row.getCell(22));
+                    String placeOfBirth = String.valueOf(row.getCell(5));
+                    String qualification = String.valueOf(row.getCell(6));
+                    String educationLevel = String.valueOf(row.getCell(7));
+                    String culturalLevel = String.valueOf(row.getCell(8));
+                    String homeTown =String.valueOf(row.getCell(9));
+                    String maritalStatus = String.valueOf(row.getCell(10));
+                    String position = String.valueOf(row.getCell(11));
+                    String joiningday = String.valueOf(row.getCell(12));
+                    String employmentContractDate= String.valueOf(row.getCell(13));
+                    String  socialInsuranceMonth = String.valueOf(row.getCell(14)) ;
+                    String relationShip = String.valueOf(row.getCell(15));
+                    String socialInsuranceNumber= String.valueOf(row.getCell(16));
+                    String phoneNumber= String.valueOf(row.getCell(17));
+                    String idCardNumber= String.valueOf(row.getCell(18));;
+                    String citizenCardNumber= String.valueOf(row.getCell(19));;
+                    String dateOfIssue= String.valueOf(row.getCell(20));;
+                    String placeOfIssue= String.valueOf(row.getCell(21));
+                    int department_id = (int) Double.parseDouble(String.valueOf(row.getCell(22)));
+                    String address = String.valueOf(row.getCell(23));
+                    String ward = String.valueOf(row.getCell(24));
+                    String district = String.valueOf(row.getCell(25));
+                    String province = String.valueOf(row.getCell(26));
+                    String otherDetail = String.valueOf(row.getCell(27));
+                    String base_salary = String.valueOf(row.getCell(28));
+                    String ef_salary = String.valueOf(row.getCell(29));
+                    String salaryAmount = String.valueOf(row.getCell(30));
 
-                    int department_id = (int) Double.parseDouble(String.valueOf(row.getCell(23)));
-                    String address = String.valueOf(row.getCell(24));
-                    String ward = String.valueOf(row.getCell(25));
-                    String district = String.valueOf(row.getCell(26));
-                    String province = String.valueOf(row.getCell(27));
-                    String yearOfWork = String.valueOf(row.getCell(28));
-                    String otherDetail = String.valueOf(row.getCell(29));
-                    String base_salary = String.valueOf(row.getCell(30));
-                    String ef_salary = String.valueOf(row.getCell(31));
-                    String salaryAmount = String.valueOf(row.getCell(32));
+                    String dayOfIssueCmnd = String.valueOf(row.getCell(31));
+                    String placeOfIssueCmnd = String.valueOf(row.getCell(32));
+                    String status = String.valueOf(row.getCell(33));
+                    String description = String.valueOf(row.getCell(34));
 
-                    String dayOfIssueCmnd = String.valueOf(row.getCell(33));
-                    String placeOfIssueCmnd = String.valueOf(row.getCell(34));
-                    String status = String.valueOf(row.getCell(35));
-                    String description = String.valueOf(row.getCell(36));
-
-                    String idWard = String.valueOf(row.getCell(37));
-                    String idDistrict = String.valueOf(row.getCell(38));
-                    String idProvince = String.valueOf(row.getCell(39));
+                    String idWard = String.valueOf(row.getCell(35));
+                    String idDistrict = String.valueOf(row.getCell(36));
+                    String idProvince = String.valueOf(row.getCell(37));
 
                     Optional<Department> optionalDepartment = departmentRepository.findById((long) department_id);
                     Department department = optionalDepartment.get();
@@ -310,7 +332,6 @@ public class EmployeeService implements IEmployeeService {
                     employee.setLastName(lastName);
                     employee.setDateOfBirth(EmployeeService.convertStringToLocalDateImp(dateOfBirth));
                     employee.setGender(gender);
-                    employee.setAge(age);
                     employee.setPlaceOfBirth(placeOfBirth);
                     employee.setQualification(qualification);
                     employee.setEducationLevel(educationLevel);
@@ -356,7 +377,6 @@ public class EmployeeService implements IEmployeeService {
                     salary.setSalaryCoEfficient(BigDecimal.valueOf(Double.valueOf(ef_salary)));
                     salary.setSalaryAmount(BigDecimal.valueOf(Double.valueOf(salaryAmount)) );
                     salary.setOtherDetails(otherDetail);
-                    salary.setYearOfWork(yearOfWork);
                     salary.setEmployee(employee);
                     salaryRepository.save(salary);
 

@@ -23,8 +23,8 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
 
     @Query(value = "SELECT NEW com.example.thiaco.dto.EmployeeResDTO" +
             "(e.id, e.employee_id, e.fullName,e.lastName, e.dateOfBirth, e.gender, " +
-            " e.age , e.placeOfBirth,e.qualification, e.educationLevel, e.culturalLevel, " +
-            "e.homeTown,e.accommodation, e.maritalStatus, e.position ,e.joiningday, " +
+            " e.placeOfBirth,e.qualification, e.educationLevel, e.culturalLevel, " +
+            "e.homeTown, e.maritalStatus, e.position ,e.joiningday, " +
             "e.employmentContractDate, e.socialInsuranceMonth, e.relationShip, e.socialInsuranceNumber, " +
             "e.phoneNumber, e.idCardNumber, e.citizenCardNumber, e.dateOfIssue, e.placeOfIssue, e.department, e.locationRegion, e.salary" +
             ")" +
@@ -34,7 +34,7 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
 
     Employee findEmployeeById(Long id);
 
-    @Query(value = "SELECT e.id , e.manv, e.hovanten, e.thangdongbhxh, e.choo,e.tuoi,e.socccd," +
+    @Query(value = "SELECT e.id , e.manv, e.hovanten, e.thangdongbhxh,e.socccd," +
             "e.trinhdovanhoa,e.date_of_birth,e.ngaycap,e.trinhdohocvan,e.ngaykyhd,e.gioitinh," +
             "e.quequan,e.socmnd,e.ngaycap_cmnd, e.noicap_cmnd ,e.ngayvaocongty,e.ten,e.tinhtranghonnhan,e.dienthoai,e.noisinh," +
             "e.noicap,e.chucvu,e.trinhdochuyenmon,e.moiquanhe,e.so_sobhxh," +

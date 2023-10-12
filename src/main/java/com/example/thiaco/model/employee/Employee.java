@@ -17,6 +17,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,8 +43,6 @@ public class Employee extends BaseEntity {
     private LocalDate dateOfBirth;
     @Column(name = "gioitinh", nullable = false)
     private String gender;
-    @Column(name = "tuoi", nullable = true)
-    private int age;
     @Column(name = "noisinh",nullable = true)
     private String placeOfBirth;
     @Column(name = "trinhdochuyenmon")
@@ -54,8 +53,6 @@ public class Employee extends BaseEntity {
     private String culturalLevel;
     @Column(name = "quequan")
     private String homeTown;
-    @Column(name = "choo")
-    private String accommodation;
     @Column(name = "tinhtranghonnhan")
     private String maritalStatus;
     @Column(name = "chucvu")
@@ -103,21 +100,25 @@ public class Employee extends BaseEntity {
     @Column(name = "note", nullable = false)
     private String description;
 
-    public EmployeeDTO toEmployeeDTO() {
+    public int getAge() {
+        LocalDate current = LocalDate.now();
+        return Period.between(dateOfBirth, current).getYears();
+    }
+
+    public EmployeeDTO toEmployeeDTO(Employee employee) {
         return new EmployeeDTO()
                 .setId(id)
                 .setEmployee_id(employee_id)
                 .setFullName(fullName)
                 .setLastName(lastName)
                 .setDateOfBirth(EmployeeService.converLocalDateToString(dateOfBirth))
-                .setAge(age)
+                .setAge(employee.getAge())
                 .setGender(gender)
                 .setPlaceOfBirth(placeOfBirth)
                 .setQualification(qualification)
                 .setEducationLevel(educationLevel)
                 .setCulturalLevel(culturalLevel)
                 .setHomeTown(homeTown)
-                .setAccommodation(accommodation)
                 .setMaritalStatus(maritalStatus)
                 .setPosition(position)
                 .setJoiningday(EmployeeService.converLocalDateToString(joiningday))
@@ -136,7 +137,7 @@ public class Employee extends BaseEntity {
                 .setPlaceOfIssue(placeOfIssue)
                 .setDepartmentDTO(department.toDepartmentDTO())
                 .setLocationRegionDTO(locationRegion.toLocationRegionDTO())
-                .setSalaryDTO(salary.toSalaryDTO())
+                .setSalaryDTO(salary.toSalaryDTO(salary))
 
                 .setEmployeeStatus(employeeStatus.getValue())
                 .setDescription(description)

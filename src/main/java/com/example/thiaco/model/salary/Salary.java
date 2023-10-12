@@ -9,9 +9,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.apache.poi.hpsf.Decimal;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Setter
 @Getter
@@ -26,11 +30,9 @@ public class Salary extends BaseEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToOne
-//    @JoinColumn(name = "nhanVien_id",referencedColumnName = "id",nullable = true)
-//    private Employee employee;
-    @Column(name = "namTinhLuong",nullable = false)
-    private String yearOfWork;
+
+//    @Column(name = "namTinhLuong",nullable = false)
+//    private String yearOfWork;
     @Column(name = "tienLuong",precision = 10,scale = 0,nullable = false)
     private BigDecimal salaryAmount;
     @Column(name = "hsoLuongHienTai",nullable = false)
@@ -44,10 +46,22 @@ public class Salary extends BaseEntity
     @JoinColumn(name = "employee_id", referencedColumnName = "id",nullable = true)
     private Employee employee;
 
-    public SalaryDTO toSalaryDTO() {
+    public BigDecimal getYearOfWork(LocalDate contractDay) {
+        LocalDate current = LocalDate.now();
+        Period period = Period.between(contractDay, current);
+        int year = period.getYears();
+        int month = period.getMonths();
+        int days = period.getDays();
+        BigDecimal totalYear = BigDecimal.valueOf(year).add(BigDecimal.valueOf(month).divide(BigDecimal.valueOf(12), 2, RoundingMode.HALF_UP))
+                .add(BigDecimal.valueOf(days).divide(BigDecimal.valueOf(365),2,RoundingMode.HALF_UP))
+                ;
+        return totalYear;
+    }
+
+    public SalaryDTO toSalaryDTO(Salary salary) {
         return new SalaryDTO()
                 .setId(id)
-                .setYearOfWork(yearOfWork)
+                .setYearOfWork(salary.getYearOfWork(employee.getEmploymentContractDate()))
                 .setSalaryAmount(salaryAmount)
                 .setSalaryCoEfficient(salaryCoEfficient)
                 .setOtherDetails(otherDetails)
