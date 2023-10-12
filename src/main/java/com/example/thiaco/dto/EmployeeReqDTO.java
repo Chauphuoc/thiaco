@@ -7,6 +7,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 
 import java.lang.annotation.Annotation;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
 
@@ -69,6 +70,13 @@ public class EmployeeReqDTO   {
     @NotEmpty(message = "Số CMND không được để trống")
     @Pattern(regexp = "^\\d{9}$",message = "CMND phải là 9 số")
     private String idCardNumber;
+
+    @NotEmpty(message = "Ngày cấp CMND không được để trống")
+    private String dateOfIssueCmnd;
+    @NotEmpty(message = "Nơi cấp CMND không được để trống")
+    private String placeOfIssueCmnd;
+
+
     @NotEmpty(message = "CCCD không được để trống")
     @Pattern(regexp = "^\\d{9,12}$",message = "CCCD phải là 12 số, CMND phải là 9 số")
     private String citizenCardNumber;
@@ -83,5 +91,8 @@ public class EmployeeReqDTO   {
     @NotNull(message = "Lương không được để trống")
     private SalaryDTO salaryDTO;
 
+    @NotEmpty(message = "Trạng thái không được để trống")
+    private String employeeStatus;
 
+    private String description;
 }

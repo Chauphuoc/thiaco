@@ -1,5 +1,6 @@
 package com.example.thiaco.dto;
 
+import com.example.thiaco.enums.EStatus;
 import com.example.thiaco.model.salary.Salary;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,10 @@ public class EmployeeDTO {
     private String socialInsuranceNumber;
     private String phoneNumber;
     private String idCardNumber;
+
+    private LocalDate dateOfIssueCmnd;
+    private String placeOfIssueCmnd;
+
     private String citizenCardNumber;
     private String dateOfIssue;
     private String placeOfIssue;
@@ -49,5 +54,6 @@ public class EmployeeDTO {
     private LocationRegionDTO locationRegionDTO;
     private SalaryDTO salaryDTO;
 
-
+    private String employeeStatus;
+    private String description;
 }

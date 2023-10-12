@@ -46,6 +46,7 @@ public class User extends BaseEntity {
 
     public UserResDTO userResDTO() {
         return new UserResDTO()
+                .setId(id)
                 .setUsername(username)
                 .setRole(role.getCode());
     }

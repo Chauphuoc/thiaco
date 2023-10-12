@@ -17,6 +17,8 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     List<Employee> saveAll(List<Employee> products);
     List<Employee> findEmployeesByDeletedIsFalse( );
 
+    List<Employee> findEmployeesByDeletedIsTrue();
+
      Employee findEmployeeById(Long id);
 
 

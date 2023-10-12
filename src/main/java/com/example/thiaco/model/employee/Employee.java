@@ -1,6 +1,7 @@
 package com.example.thiaco.model.employee;
 
 import com.example.thiaco.dto.EmployeeDTO;
+import com.example.thiaco.enums.EStatus;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
@@ -73,6 +74,14 @@ public class Employee extends BaseEntity {
     private String phoneNumber;
     @Column(name = "socmnd",nullable = true)
     private String idCardNumber;
+
+    @Column(name = "ngaycap_cmnd", nullable = true)
+    private LocalDate dateOfIssueCmnd;
+
+    @Column(name = "noicap_cmnd", nullable = true)
+    private String placeOfIssueCmnd;
+
+
     @Column(name = "socccd",nullable = false,unique = true)
     private String citizenCardNumber;
     @Column(name = "ngaycap",nullable = false)
@@ -86,6 +95,13 @@ public class Employee extends BaseEntity {
     private LocationRegion locationRegion;
     @OneToOne(mappedBy = "employee")
     private Salary salary;
+
+    @Column(name = "tinhtrang", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EStatus employeeStatus;
+
+    @Column(name = "note", nullable = false)
+    private String description;
 
     public EmployeeDTO toEmployeeDTO() {
         return new EmployeeDTO()
@@ -111,12 +127,19 @@ public class Employee extends BaseEntity {
                 .setSocialInsuranceNumber(socialInsuranceNumber)
                 .setPhoneNumber(phoneNumber)
                 .setIdCardNumber(idCardNumber)
+
+                .setDateOfIssueCmnd(dateOfIssueCmnd)
+                .setPlaceOfIssueCmnd(placeOfIssueCmnd)
+
                 .setCitizenCardNumber(citizenCardNumber)
                 .setDateOfIssue(EmployeeService.converLocalDateToString(dateOfIssue))
                 .setPlaceOfIssue(placeOfIssue)
                 .setDepartmentDTO(department.toDepartmentDTO())
                 .setLocationRegionDTO(locationRegion.toLocationRegionDTO())
                 .setSalaryDTO(salary.toSalaryDTO())
+
+                .setEmployeeStatus(employeeStatus.getValue())
+                .setDescription(description)
                 ;
     }
 

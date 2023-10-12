@@ -2,6 +2,7 @@ package com.example.thiaco.service.employee;
 
 import com.example.thiaco.dto.EmployeeReqUpDTO;
 import com.example.thiaco.dto.EmployeeResDTO;
+import com.example.thiaco.enums.EStatus;
 import com.example.thiaco.exception.DataInputException;
 import com.example.thiaco.exception.ResourceNotFoundException;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
@@ -89,6 +90,11 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
+    public List<Employee> findEmployeesByDeletedIsTrue() {
+        return employeeRepository.findEmployeesByDeletedIsTrue();
+    }
+
+    @Override
     public Employee findEmployeeById(Long id) {
         return employeeRepository.findEmployeeById(id);
     }
@@ -157,6 +163,15 @@ public class EmployeeService implements IEmployeeService {
         if (checkedCmndEmployee != null && !checkedCmndEmployee.getId().equals(id)) {
             throw new DataInputException("Cmnd đã bị trùng. Xin vui lòng nhập lại!");
         }
+
+        if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfIssueCmnd())) {
+            employee.setDateOfIssueCmnd(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssueCmnd()));
+        } else {
+            employee.setDateOfIssue(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssueCmnd()));
+        }
+        employee.setPlaceOfIssueCmnd(employeeReqUpDTO.getPlaceOfIssueCmnd());
+
+
         employee.setIdCardNumber(employeeReqUpDTO.getIdCardNumber());
 
         Employee checkedCccdEmployee = employeeRepository.findEmployeeByCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
@@ -169,11 +184,12 @@ public class EmployeeService implements IEmployeeService {
             employee.setDateOfIssue(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssue()));
         } else {
             employee.setDateOfIssue(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssue()));
-
         }
 
         employee.setPlaceOfIssue(employeeReqUpDTO.getPlaceOfIssue());
 
+        employee.setEmployeeStatus(EStatus.getEStatus(employeeReqUpDTO.getEmployeeStatus()));
+        employee.setDescription(employeeReqUpDTO.getDescription());
 
         Optional<Department> departmentOptional = departmentRepository.findById(employeeReqUpDTO.getDepartmentDTO().getId());
         if (!departmentOptional.isPresent()) {
@@ -277,6 +293,15 @@ public class EmployeeService implements IEmployeeService {
                     String ef_salary = String.valueOf(row.getCell(31));
                     String salaryAmount = String.valueOf(row.getCell(32));
 
+                    String dayOfIssueCmnd = String.valueOf(row.getCell(33));
+                    String placeOfIssueCmnd = String.valueOf(row.getCell(34));
+                    String status = String.valueOf(row.getCell(35));
+                    String description = String.valueOf(row.getCell(36));
+
+                    String idWard = String.valueOf(row.getCell(37));
+                    String idDistrict = String.valueOf(row.getCell(38));
+                    String idProvince = String.valueOf(row.getCell(39));
+
                     Optional<Department> optionalDepartment = departmentRepository.findById((long) department_id);
                     Department department = optionalDepartment.get();
                     Employee employee = new Employee();
@@ -297,20 +322,30 @@ public class EmployeeService implements IEmployeeService {
                     employee.setPosition(position);
                     employee.setJoiningday(EmployeeService.convertStringToLocalDateImp(joiningday));
                     employee.setEmploymentContractDate(EmployeeService.convertStringToLocalDateImp(employmentContractDate));
+
                     employee.setSocialInsuranceMonth(socialInsuranceMonth);
                     employee.setRelationShip(relationShip);
                     employee.setSocialInsuranceNumber(socialInsuranceNumber);
                     employee.setPhoneNumber(phoneNumber);
                     employee.setIdCardNumber(idCardNumber);
+
+                    employee.setDateOfIssueCmnd(EmployeeService.convertStringToLocalDateImp(dayOfIssueCmnd));
+                    employee.setPlaceOfIssueCmnd(placeOfIssueCmnd);
+
                     employee.setCitizenCardNumber(citizenCardNumber);
                     employee.setDateOfIssue(EmployeeService.convertStringToLocalDateImp(dateOfIssue));
                     employee.setPlaceOfIssue(placeOfIssue);
-                    employee.setDepartment(department);
+                    employee.setEmployeeStatus(EStatus.getEStatus(status));
+                    employee.setDescription(description);
 
+                    employee.setDepartment(department);
                     LocationRegion locationRegion = new LocationRegion();
                     locationRegion.setAddress(address);
+                    locationRegion.setWardId(idWard);
                     locationRegion.setWardName(ward);
+                    locationRegion.setDistrictId(idDistrict);
                     locationRegion.setDistrictName(district);
+                    locationRegion.setProvinceId(idProvince);
                     locationRegion.setProvinceName(province);
                     employee.setLocationRegion(locationRegion);
                     locationRegion.setEmployee(employee);

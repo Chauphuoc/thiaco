@@ -18,6 +18,9 @@ import java.util.Optional;
 public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaSpecificationExecutor<Employee>
          {
     List<Employee> findEmployeesByDeletedIsFalse();
+
+    List<Employee> findEmployeesByDeletedIsTrue();
+
     @Query(value = "SELECT NEW com.example.thiaco.dto.EmployeeResDTO" +
             "(e.id, e.employee_id, e.fullName,e.lastName, e.dateOfBirth, e.gender, " +
             " e.age , e.placeOfBirth,e.qualification, e.educationLevel, e.culturalLevel, " +
@@ -31,7 +34,12 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
 
     Employee findEmployeeById(Long id);
 
-    @Query(value = "SELECT e.id , e.manv, e.hovanten, e.thangdongbhxh, e.choo,e.tuoi,e.socccd,e.trinhdovanhoa,e.date_of_birth,e.ngaycap,e.trinhdohocvan,e.ngaykyhd,e.gioitinh,e.quequan,e.socmnd,e.ngayvaocongty,e.ten,e.tinhtranghonnhan,e.dienthoai,e.noisinh,e.noicap,e.chucvu,e.trinhdochuyenmon,e.moiquanhe,e.so_sobhxh,e.created_at,e.created_by,e.update_at,e.update_by,e.deleted,e.phongban_id FROM Employee AS e WHERE e.manv = :employeeId ",nativeQuery = true)
+    @Query(value = "SELECT e.id , e.manv, e.hovanten, e.thangdongbhxh, e.choo,e.tuoi,e.socccd," +
+            "e.trinhdovanhoa,e.date_of_birth,e.ngaycap,e.trinhdohocvan,e.ngaykyhd,e.gioitinh," +
+            "e.quequan,e.socmnd,e.ngaycap_cmnd, e.noicap_cmnd ,e.ngayvaocongty,e.ten,e.tinhtranghonnhan,e.dienthoai,e.noisinh," +
+            "e.noicap,e.chucvu,e.trinhdochuyenmon,e.moiquanhe,e.so_sobhxh," +
+            "e.created_at,e.created_by,e.update_at,e.update_by,e.deleted,e.phongban_id, e.tinhtrang, e.note " +
+            "FROM Employee AS e WHERE e.manv = :employeeId ",nativeQuery = true)
     Employee findEmployeeByEmployeeId(@Param("employeeId") Long employeeId);
 
     @Query("SELECT count(e.employee_id) FROM Employee AS e WHERE e.employee_id = :employeeId")
@@ -45,4 +53,6 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
     Employee findEmployeeByIdCardNumber(String cmnd);
 
     Employee findEmployeeByCitizenCardNumber(String cccd);
+
+
 }
