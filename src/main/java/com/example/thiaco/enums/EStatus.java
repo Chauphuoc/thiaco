@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 public enum EStatus {
     CHINH_THUC("Chính thức"),
     THU_VIEC("Thử việc"),
-    DAO_TAO("Đào tạo");
+    DAO_TAO("Đào tạo"),
+    THOI_VU("Thời vụ");
 
     private String value;
 

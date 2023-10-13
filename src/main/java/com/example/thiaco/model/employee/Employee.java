@@ -79,9 +79,9 @@ public class Employee extends BaseEntity {
     private String placeOfIssueCmnd;
 
 
-    @Column(name = "socccd",nullable = false,unique = true)
+    @Column(name = "socccd",nullable = true,unique = true)
     private String citizenCardNumber;
-    @Column(name = "ngaycap",nullable = false)
+    @Column(name = "ngaycap",nullable = true)
     private LocalDate dateOfIssue;
     @Column(name = "noicap",nullable = false)
     private String placeOfIssue;
@@ -93,11 +93,11 @@ public class Employee extends BaseEntity {
     @OneToOne(mappedBy = "employee")
     private Salary salary;
 
-    @Column(name = "tinhtrang", nullable = false)
+    @Column(name = "tinhtrang", nullable = true)
     @Enumerated(EnumType.STRING)
     private EStatus employeeStatus;
 
-    @Column(name = "note", nullable = false)
+    @Column(name = "note", nullable = true)
     private String description;
 
     public int getAge() {

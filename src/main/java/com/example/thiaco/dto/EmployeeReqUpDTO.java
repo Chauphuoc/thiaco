@@ -109,6 +109,7 @@ public class EmployeeReqUpDTO {
                 .setSocialInsuranceNumber(socialInsuranceNumber)
                 .setPhoneNumber(phoneNumber)
                 .setIdCardNumber(idCardNumber)
+                .setDateOfIssueCmnd(EmployeeService.convertStringToLocalDate(dateOfIssueCmnd))
                 .setCitizenCardNumber(citizenCardNumber)
                 .setDateOfIssue(EmployeeService.convertStringToLocalDate(dateOfIssue))
                 .setPlaceOfIssue(placeOfIssue)

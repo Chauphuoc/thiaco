@@ -193,7 +193,7 @@ public class EmployeeService implements IEmployeeService {
         if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfIssueCmnd())) {
             employee.setDateOfIssueCmnd(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssueCmnd()));
         } else {
-            employee.setDateOfIssue(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssueCmnd()));
+            employee.setDateOfIssueCmnd(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssueCmnd()));
         }
         employee.setPlaceOfIssueCmnd(employeeReqUpDTO.getPlaceOfIssueCmnd());
 
@@ -350,11 +350,23 @@ public class EmployeeService implements IEmployeeService {
                     employee.setPhoneNumber(phoneNumber);
                     employee.setIdCardNumber(idCardNumber);
 
-                    employee.setDateOfIssueCmnd(EmployeeService.convertStringToLocalDateImp(dayOfIssueCmnd));
+                    if (dayOfIssueCmnd == "") {
+                        employee.setDateOfIssueCmnd(null);
+                    } else {
+                        employee.setDateOfIssueCmnd(EmployeeService.convertStringToLocalDateImp(dayOfIssueCmnd));
+                    }
+
                     employee.setPlaceOfIssueCmnd(placeOfIssueCmnd);
 
                     employee.setCitizenCardNumber(citizenCardNumber);
-                    employee.setDateOfIssue(EmployeeService.convertStringToLocalDateImp(dateOfIssue));
+
+                    if (dateOfIssue == "") {
+                        employee.setDateOfIssue(null);
+                    } else {
+                        employee.setDateOfIssue(EmployeeService.convertStringToLocalDateImp(dateOfIssue));
+                    }
+
+
                     employee.setPlaceOfIssue(placeOfIssue);
                     employee.setEmployeeStatus(EStatus.getEStatus(status));
                     employee.setDescription(description);
