@@ -86,6 +86,10 @@ public class EmployeeReqUpDTO {
     private String employeeStatus;
 
     private String description;
+
+    private String sktBank;
+    private String nameBank;
+    private String masothue;
     public Employee toEmployee() {
         return new Employee()
                 .setId(id)

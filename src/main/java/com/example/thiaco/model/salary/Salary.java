@@ -3,14 +3,17 @@ package com.example.thiaco.model.salary;
 import com.example.thiaco.dto.SalaryDTO;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.employee.Employee;
+import com.example.thiaco.service.salary.ISalaryService;
+import com.example.thiaco.service.salary.SalaryService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.apache.poi.hpsf.Decimal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -26,6 +29,7 @@ import java.time.Period;
 @Accessors(chain = true)
 public class Salary extends BaseEntity
 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,6 +61,8 @@ public class Salary extends BaseEntity
                 ;
         return totalYear;
     }
+
+
 
     public SalaryDTO toSalaryDTO(Salary salary) {
         return new SalaryDTO()

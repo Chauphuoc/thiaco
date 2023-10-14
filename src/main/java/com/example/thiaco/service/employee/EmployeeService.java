@@ -25,6 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -217,6 +218,10 @@ public class EmployeeService implements IEmployeeService {
         employee.setEmployeeStatus(EStatus.getEStatus(employeeReqUpDTO.getEmployeeStatus()));
         employee.setDescription(employeeReqUpDTO.getDescription());
 
+        employee.setStkBank(employeeReqUpDTO.getSktBank());
+        employee.setNameBank(employeeReqUpDTO.getNameBank());
+        employee.setMasothue(employeeReqUpDTO.getMasothue());
+
         Optional<Department> departmentOptional = departmentRepository.findById(employeeReqUpDTO.getDepartmentDTO().getId());
         if (!departmentOptional.isPresent()) {
             throw new ResourceNotFoundException("Không tìm thấy phòng ban");
@@ -310,19 +315,22 @@ public class EmployeeService implements IEmployeeService {
                     String ward = String.valueOf(row.getCell(24));
                     String district = String.valueOf(row.getCell(25));
                     String province = String.valueOf(row.getCell(26));
-                    String otherDetail = String.valueOf(row.getCell(27));
-                    String base_salary = String.valueOf(row.getCell(28));
-                    String ef_salary = String.valueOf(row.getCell(29));
-                    String salaryAmount = String.valueOf(row.getCell(30));
+                    String base_salary = String.valueOf(row.getCell(27));
+                    String ef_salary = String.valueOf(row.getCell(28));
+                    String salaryAmount = String.valueOf(row.getCell(29));
 
-                    String dayOfIssueCmnd = String.valueOf(row.getCell(31));
-                    String placeOfIssueCmnd = String.valueOf(row.getCell(32));
-                    String status = String.valueOf(row.getCell(33));
-                    String description = String.valueOf(row.getCell(34));
+                    String dayOfIssueCmnd = String.valueOf(row.getCell(30));
+                    String placeOfIssueCmnd = String.valueOf(row.getCell(31));
+                    String status = String.valueOf(row.getCell(32));
+                    String description = String.valueOf(row.getCell(33));
 
-                    String idWard = String.valueOf(row.getCell(35));
-                    String idDistrict = String.valueOf(row.getCell(36));
-                    String idProvince = String.valueOf(row.getCell(37));
+                    String stkBank = String.valueOf(row.getCell(34));
+                    String nameBank = String.valueOf(row.getCell(35));
+                    String masothue = String.valueOf(row.getCell(36));
+
+                    String idWard = String.valueOf(row.getCell(37));
+                    String idDistrict = String.valueOf(row.getCell(38));
+                    String idProvince = String.valueOf(row.getCell(39));
 
                     Optional<Department> optionalDepartment = departmentRepository.findById((long) department_id);
                     Department department = optionalDepartment.get();
@@ -371,6 +379,10 @@ public class EmployeeService implements IEmployeeService {
                     employee.setEmployeeStatus(EStatus.getEStatus(status));
                     employee.setDescription(description);
 
+                    employee.setStkBank(stkBank);
+                    employee.setNameBank(nameBank);
+                    employee.setMasothue(masothue);
+
                     employee.setDepartment(department);
                     LocationRegion locationRegion = new LocationRegion();
                     locationRegion.setAddress(address);
@@ -388,7 +400,6 @@ public class EmployeeService implements IEmployeeService {
                     salary.setBasicSalary(BigDecimal.valueOf(Double.valueOf(base_salary)));
                     salary.setSalaryCoEfficient(BigDecimal.valueOf(Double.valueOf(ef_salary)));
                     salary.setSalaryAmount(BigDecimal.valueOf(Double.valueOf(salaryAmount)) );
-                    salary.setOtherDetails(otherDetail);
                     salary.setEmployee(employee);
                     salaryRepository.save(salary);
 

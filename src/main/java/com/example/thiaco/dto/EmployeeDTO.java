@@ -56,4 +56,8 @@ public class EmployeeDTO {
 
     private String employeeStatus;
     private String description;
+
+    private String stkBank;
+    private String nameBank;
+    private String masothue;
 }

@@ -78,12 +78,11 @@ public class Employee extends BaseEntity {
     @Column(name = "noicap_cmnd", nullable = true)
     private String placeOfIssueCmnd;
 
-
     @Column(name = "socccd",nullable = true,unique = true)
     private String citizenCardNumber;
     @Column(name = "ngaycap",nullable = true)
     private LocalDate dateOfIssue;
-    @Column(name = "noicap",nullable = false)
+    @Column(name = "noicap",nullable = true)
     private String placeOfIssue;
     @ManyToOne
     @JoinColumn(name = "phongban_id",referencedColumnName = "id",nullable = false)
@@ -100,11 +99,21 @@ public class Employee extends BaseEntity {
     @Column(name = "note", nullable = true)
     private String description;
 
+    @Column(name = "stk_nganhang")
+    private String stkBank;
+
+    @Column(name = "ten_nganhang")
+    private String nameBank;
+
+    @Column(name = "masothue")
+    private String masothue;
+
     public int getAge() {
         LocalDate current = LocalDate.now();
         return Period.between(dateOfBirth, current).getYears();
     }
 
+    //Ngày cấp CCCD , CMND phải đầy đủ thông tin vì sử dụng hàm convert
     public EmployeeDTO toEmployeeDTO(Employee employee) {
         return new EmployeeDTO()
                 .setId(id)
@@ -133,6 +142,7 @@ public class Employee extends BaseEntity {
                 .setPlaceOfIssueCmnd(placeOfIssueCmnd)
 
                 .setCitizenCardNumber(citizenCardNumber)
+
                 .setDateOfIssue(EmployeeService.converLocalDateToString(dateOfIssue))
                 .setPlaceOfIssue(placeOfIssue)
                 .setDepartmentDTO(department.toDepartmentDTO())
@@ -141,6 +151,10 @@ public class Employee extends BaseEntity {
 
                 .setEmployeeStatus(employeeStatus.getValue())
                 .setDescription(description)
+
+                .setStkBank(stkBank)
+                .setNameBank(nameBank)
+                .setMasothue(masothue)
                 ;
     }
 

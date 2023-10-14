@@ -29,7 +29,6 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
             "e.phoneNumber, e.idCardNumber, e.citizenCardNumber, e.dateOfIssue, e.placeOfIssue, e.department, e.locationRegion, e.salary" +
             ")" +
             "FROM Employee AS e WHERE e.deleted = false ")
-
     Page<EmployeeResDTO> getEmployeesByDeletedIsFalse (Pageable pageable);
 
     Employee findEmployeeById(Long id);
