@@ -43,7 +43,7 @@ public class EmployeeResDTO {
     private LocationRegionDTO locationRegionDTO;
     private SalaryDTO salaryDTO;
 
-    public EmployeeResDTO(Long id, Long employee_id, String fullName, String lastName, LocalDate dateOfBirth, String gender,
+    public EmployeeResDTO(Long id, Long employee_id, String fullName,  LocalDate dateOfBirth, String gender,
                           String placeOfBirth, String qualification, String educationLevel, String culturalLevel, String homeTown
                           , String maritalStatus, String position, LocalDate joiningday
                           , LocalDate employmentContractDate, String socialInsuranceMonth, String relationShip
@@ -55,7 +55,7 @@ public class EmployeeResDTO {
         this.id = id;
         this.employee_id = employee_id;
         this.fullName = fullName;
-        this.lastName = lastName;
+//        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.placeOfBirth = placeOfBirth;

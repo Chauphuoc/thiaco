@@ -1,8 +1,11 @@
 package com.example.thiaco.model.salary;
 
+import com.example.thiaco.dto.EmployeeDTO;
 import com.example.thiaco.dto.SalaryEffDTO;
+import com.example.thiaco.enums.Earea;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.department.Department;
+import com.example.thiaco.model.employee.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,15 +34,24 @@ public class SalaryCoEfficient extends BaseEntity {
     @Column(name = "heSoLuong",nullable = false)
     private BigDecimal salaryEfficientAmount;
 
+    //    @ManyToOne
+//    @JoinColumn(name = "phongBan_id",referencedColumnName = "id",nullable = false)
+//    private Department department;
     @ManyToOne
-    @JoinColumn(name = "phongBan_id",referencedColumnName = "id",nullable = false)
-    private Department department;
+    @JoinColumn(name = "nhanvien_id",referencedColumnName = "id")
+    private Employee employee;
+
+    @Column(name = "vungluong")
+    @Enumerated(EnumType.STRING)
+    private Earea earea;
 
     public SalaryEffDTO toSalaryEffDTO() {
         return new SalaryEffDTO()
                 .setId(id)
                 .setYear(year)
                 .setSalaryEfficientAmount(salaryEfficientAmount)
-                .setDepartmentDTO(department.toDepartmentDTO());
+                .setEmployeeId(employee.getEmployee_id())
+                .setArea(earea.getValue())
+                ;
     }
 }

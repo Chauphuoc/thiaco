@@ -2,6 +2,7 @@ package com.example.thiaco.model.employee;
 
 import com.example.thiaco.dto.EmployeeDTO;
 import com.example.thiaco.enums.EStatus;
+import com.example.thiaco.enums.Earea;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
@@ -37,8 +38,6 @@ public class Employee extends BaseEntity {
     private Long employee_id;
     @Column(name = "hovanten", nullable = false)
     private String fullName;
-    @Column(name = "ten", nullable = false)
-    private String lastName;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     @Column(name = "gioitinh", nullable = false)
@@ -108,9 +107,26 @@ public class Employee extends BaseEntity {
     @Column(name = "masothue")
     private String masothue;
 
+
+    @Column(name = "noilamviec")
+    @Enumerated(EnumType.STRING)
+    private Earea earea;
+
+    @Column(name = "ngaybatdau")
+    private LocalDate startDay;
+
     public int getAge() {
         LocalDate current = LocalDate.now();
         return Period.between(dateOfBirth, current).getYears();
+    }
+
+    public String getLastName(String name) {
+        String  fullname = name.trim();
+        int index = fullname.lastIndexOf(" ");
+        if (index > -1) {
+            return fullname.substring(index + 1,fullname.length());
+        }
+        return null;
     }
 
     //Ngày cấp CCCD , CMND phải đầy đủ thông tin vì sử dụng hàm convert
@@ -119,7 +135,7 @@ public class Employee extends BaseEntity {
                 .setId(id)
                 .setEmployee_id(employee_id)
                 .setFullName(fullName)
-                .setLastName(lastName)
+                .setLastName(employee.getLastName(employee.fullName))
                 .setDateOfBirth(EmployeeService.converLocalDateToString(dateOfBirth))
                 .setAge(employee.getAge())
                 .setGender(gender)
@@ -155,6 +171,8 @@ public class Employee extends BaseEntity {
                 .setStkBank(stkBank)
                 .setNameBank(nameBank)
                 .setMasothue(masothue)
+
+                .setArea(earea.getValue())
                 ;
     }
 

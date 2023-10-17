@@ -1,6 +1,7 @@
 package com.example.thiaco.api;
 
 import com.example.thiaco.dto.SalaryEffDTO;
+import com.example.thiaco.dto.SalaryEffReqDTO;
 import com.example.thiaco.exception.DataInputException;
 import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.model.salary.SalaryCoEfficient;
@@ -35,12 +36,14 @@ public class SalaryAPI {
     }
 
     @PostMapping("/eff")
-    public ResponseEntity<?> createSalaryEff(@RequestBody SalaryEffDTO salaryEffDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> createSalaryEff(@RequestBody SalaryEffReqDTO request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return appUtils.mapErrorToResponse(bindingResult);
         }
-        SalaryCoEfficient salaryCoEfficient = salaryEffService.create(salaryEffDTO);
-        return new ResponseEntity<>(salaryCoEfficient.toSalaryEffDTO(), HttpStatus.OK);
+        salaryEffService.create(request);
+        List<SalaryCoEfficient> list = salaryEffService.getSalaryCoEfficientsByDeletedIsFalse();
+        List<SalaryEffDTO> salaryEffDTOList = list.stream().map(salaryCoEfficient -> salaryCoEfficient.toSalaryEffDTO()).collect(Collectors.toList());
+        return new ResponseEntity<>(salaryEffDTOList, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

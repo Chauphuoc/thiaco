@@ -95,7 +95,7 @@ public class EmployeeReqUpDTO {
                 .setId(id)
                 .setEmployee_id(employee_id)
                 .setFullName(fullName)
-                .setLastName(lastName)
+//                .setLastName(lastName)
                 .setDateOfBirth(EmployeeService.convertStringToLocalDate(dateOfBirth))
                 .setGender(gender)
 //                .setAge(age)

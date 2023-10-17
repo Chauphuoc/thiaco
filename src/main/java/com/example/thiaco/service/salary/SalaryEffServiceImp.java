@@ -1,8 +1,12 @@
 package com.example.thiaco.service.salary;
 
 import com.example.thiaco.dto.SalaryEffDTO;
-import com.example.thiaco.model.department.Department;
+import com.example.thiaco.dto.SalaryEffReqDTO;
+import com.example.thiaco.enums.Earea;
+import com.example.thiaco.exception.DataInputException;
+import com.example.thiaco.model.employee.Employee;
 import com.example.thiaco.model.salary.SalaryCoEfficient;
+import com.example.thiaco.repository.EmployeeRepository;
 import com.example.thiaco.repository.SalaryCoEffRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ import java.util.Optional;
 public class SalaryEffServiceImp implements ISalaryEffService{
     @Autowired
     private SalaryCoEffRepository salaryCoEffRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
     @Override
     public List<SalaryCoEfficient> findAll() {
         return null;
@@ -41,10 +48,6 @@ public class SalaryEffServiceImp implements ISalaryEffService{
 
     }
 
-    @Override
-    public List<SalaryCoEfficient> findSalaryCoEfficientsByDepartment(Department department) {
-        return salaryCoEffRepository.findSalaryCoEfficientsByDepartment(department);
-    }
 
     @Override
     public List<SalaryCoEfficient> getSalaryCoEfficientsByDeletedIsFalse() {
@@ -52,13 +55,22 @@ public class SalaryEffServiceImp implements ISalaryEffService{
     }
 
     @Override
-    public SalaryCoEfficient create(SalaryEffDTO salaryEffDTO) {
+    public void create(SalaryEffReqDTO request) {
         SalaryCoEfficient salaryCoEfficient = new SalaryCoEfficient();
-        salaryCoEfficient.setDepartment(salaryEffDTO.getDepartmentDTO().toDepartment());
-        salaryCoEfficient.setYear(salaryEffDTO.getYear());
-        salaryCoEfficient.setSalaryEfficientAmount(salaryEffDTO.getSalaryEfficientAmount());
+        salaryCoEfficient.setYear(request.getYear());
+        salaryCoEfficient.setSalaryEfficientAmount(request.getSalaryEfficientAmount());
+
+        Long employeeId = Long.parseLong(request.getEmployeeId()) ;
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByManv(employeeId);
+        if (!employeeOptional.isPresent()) {
+            throw new DataInputException("Không tìm thấy nhân viên! Xin vui lòng nhập lại mã nhân viên!");
+        } else {
+            Employee employee = employeeOptional.get();
+            salaryCoEfficient.setEmployee(employee);
+        }
+        salaryCoEfficient.setEarea(Earea.getArea(request.getArea()));
+
         salaryCoEffRepository.save(salaryCoEfficient);
-        SalaryCoEfficient current = salaryCoEffRepository.findSalaryCoEfficientByDepartmentYearSalary(salaryEffDTO.getDepartmentDTO().getDepartment_name(), salaryEffDTO.getYear(), salaryEffDTO.getSalaryEfficientAmount());
-        return current;
+
     }
 }

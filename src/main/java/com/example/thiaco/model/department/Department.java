@@ -31,8 +31,7 @@ public class Department extends BaseEntity {
     private String departmentName;
 
 
-    @OneToMany(mappedBy = "department",fetch = FetchType.EAGER)
-    private List<SalaryCoEfficient> salaryCoEfficient;
+
     public DepartmentDTO toDepartmentDTO() {
         return new DepartmentDTO()
                 .setId(id)

@@ -13,8 +13,7 @@ import java.util.Optional;
 @Repository
 public interface SalaryCoEffRepository extends JpaRepository<SalaryCoEfficient,Long> {
     List<SalaryCoEfficient> getSalaryCoEfficientsByDeletedIsFalse();
-    List<SalaryCoEfficient> findSalaryCoEfficientsByDepartment(Department department);
 
-    @Query("SELECT sa FROM SalaryCoEfficient as sa WHERE sa.department.departmentName = :name AND sa.year = :year AND sa.salaryEfficientAmount = :eff AND sa.deleted = false")
-    SalaryCoEfficient findSalaryCoEfficientByDepartmentYearSalary(String name, String year, BigDecimal eff);
+//    @Query("SELECT sa FROM SalaryCoEfficient as sa WHERE sa.department.departmentName = :name AND sa.year = :year AND sa.salaryEfficientAmount = :eff AND sa.deleted = false")
+//    SalaryCoEfficient findSalaryCoEfficientByDepartmentYearSalary(String name, String year, BigDecimal eff);
 }

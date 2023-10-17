@@ -60,4 +60,6 @@ public class EmployeeDTO {
     private String stkBank;
     private String nameBank;
     private String masothue;
+
+    private String area;
 }
