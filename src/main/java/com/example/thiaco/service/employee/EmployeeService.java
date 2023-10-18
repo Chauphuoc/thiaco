@@ -100,6 +100,11 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
+    public Optional<Employee> findEmployeeByManv(Long employeeId) {
+        return employeeRepository.findEmployeeByManv(employeeId);
+    }
+
+    @Override
     public Employee findEmployeeByEmployeeId(Long employeeId) {
         return employeeRepository.findEmployeeByEmployeeId(employeeId);
     }
@@ -219,6 +224,8 @@ public class EmployeeService implements IEmployeeService {
         employee.setStkBank(employeeReqUpDTO.getSktBank());
         employee.setNameBank(employeeReqUpDTO.getNameBank());
         employee.setMasothue(employeeReqUpDTO.getMasothue());
+
+
 
         Optional<Department> departmentOptional = departmentRepository.findById(employeeReqUpDTO.getDepartmentDTO().getId());
         if (!departmentOptional.isPresent()) {

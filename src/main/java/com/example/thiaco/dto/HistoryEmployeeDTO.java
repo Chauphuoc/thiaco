@@ -1,43 +1,38 @@
 package com.example.thiaco.dto;
 
 import com.example.thiaco.enums.EStatus;
-import com.example.thiaco.model.salary.Salary;
-import jakarta.persistence.Column;
+import com.example.thiaco.enums.Earea;
+import com.example.thiaco.model.LocationRegion.LocationRegion;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.cglib.core.Local;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Date;
-import java.util.List;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class EmployeeDTO {
+public class HistoryEmployeeDTO {
+
     private Long id;
     private Long employee_id;
     private String fullName;
-    private String lastName;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String gender;
-    private int age;
     private String placeOfBirth;
     private String qualification;
     private String educationLevel;
     private String culturalLevel;
     private String homeTown;
-    private String accommodation;
     private String maritalStatus;
     private String position;
-    private String joiningday;
-    private String employmentContractDate;
+    private LocalDate joiningday;
+    private LocalDate employmentContractDate;
     private String socialInsuranceMonth;
     private String relationShip;
     private String socialInsuranceNumber;
@@ -48,18 +43,29 @@ public class EmployeeDTO {
     private String placeOfIssueCmnd;
 
     private String citizenCardNumber;
-    private String dateOfIssue;
+    private LocalDate dateOfIssue;
     private String placeOfIssue;
-    private DepartmentDTO departmentDTO;
+
+    private String departmentName;
+
     private LocationRegionDTO locationRegionDTO;
-    private SalaryDTO salaryDTO;
+    private BigDecimal salaryEff;
+
+    private BigDecimal areaSalary;
+
+    private BigDecimal basicSalary;
 
     private String employeeStatus;
+
     private String description;
 
     private String stkBank;
+
     private String nameBank;
+
     private String masothue;
 
 
+
+    private LocalDate endDay;
 }

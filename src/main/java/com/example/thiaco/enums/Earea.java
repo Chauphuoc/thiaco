@@ -3,7 +3,7 @@ package com.example.thiaco.enums;
 public enum Earea {
     NHA_MAY1("Nhà máy may 1"),
     NHA_MAY2("Nhà máy may 2"),
-    BAO_BI("Nh máy bao bì");
+    BAO_BI("Nhà máy bao bì");
 
     private String value;
 

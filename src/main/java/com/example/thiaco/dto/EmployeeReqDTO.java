@@ -96,6 +96,5 @@ public class EmployeeReqDTO   {
     private String nameBank;
     private String masothue;
 
-    @NotEmpty(message = "Vùng làm việc không được để trống")
-    private String area;
+
 }

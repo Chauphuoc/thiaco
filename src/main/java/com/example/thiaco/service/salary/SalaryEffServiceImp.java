@@ -1,6 +1,5 @@
 package com.example.thiaco.service.salary;
 
-import com.example.thiaco.dto.SalaryEffDTO;
 import com.example.thiaco.dto.SalaryEffReqDTO;
 import com.example.thiaco.enums.Earea;
 import com.example.thiaco.exception.DataInputException;
@@ -51,7 +50,7 @@ public class SalaryEffServiceImp implements ISalaryEffService{
 
     @Override
     public List<SalaryCoEfficient> getSalaryCoEfficientsByDeletedIsFalse() {
-        return salaryCoEffRepository.getSalaryCoEfficientsByDeletedIsFalse();
+        return salaryCoEffRepository.getSalaryCoEfficients();
     }
 
     @Override

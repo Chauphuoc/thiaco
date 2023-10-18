@@ -90,21 +90,19 @@ public class EmployeeReqUpDTO {
     private String sktBank;
     private String nameBank;
     private String masothue;
+
     public Employee toEmployee() {
         return new Employee()
                 .setId(id)
                 .setEmployee_id(employee_id)
                 .setFullName(fullName)
-//                .setLastName(lastName)
                 .setDateOfBirth(EmployeeService.convertStringToLocalDate(dateOfBirth))
                 .setGender(gender)
-//                .setAge(age)
                 .setPlaceOfBirth(placeOfBirth)
                 .setQualification(qualification)
                 .setEducationLevel(educationLevel)
                 .setCulturalLevel(culturalLevel)
                 .setHomeTown(homeTown)
-//                .setAccommodation(accommodation)
                 .setMaritalStatus(maritalStatus)
                 .setPosition(position)
                 .setJoiningday(EmployeeService.convertStringToLocalDate(joiningday))

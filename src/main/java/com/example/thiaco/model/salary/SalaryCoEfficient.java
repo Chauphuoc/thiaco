@@ -51,6 +51,7 @@ public class SalaryCoEfficient extends BaseEntity {
                 .setYear(year)
                 .setSalaryEfficientAmount(salaryEfficientAmount)
                 .setEmployeeId(employee.getEmployee_id())
+                .setName(employee.getFullName())
                 .setArea(earea.getValue())
                 ;
     }

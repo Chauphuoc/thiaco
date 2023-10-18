@@ -38,7 +38,7 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
             "e.trinhdovanhoa,e.date_of_birth,e.ngaycap,e.trinhdohocvan,e.ngaykyhd,e.gioitinh," +
             "e.quequan,e.socmnd,e.ngaycap_cmnd, e.noicap_cmnd ,e.ngayvaocongty,e.tinhtranghonnhan,e.dienthoai,e.noisinh," +
             "e.noicap,e.chucvu,e.trinhdochuyenmon,e.moiquanhe,e.so_sobhxh," +
-            "e.created_at,e.created_by,e.update_at,e.update_by,e.deleted,e.phongban_id, e.tinhtrang, e.note, e.stk_nganhang, e.ten_nganhang, e.masothue, e.noilamviec, e.ngaybatdau " +
+            "e.created_at,e.created_by,e.update_at,e.update_by,e.deleted,e.phongban_id, e.tinhtrang, e.note, e.stk_nganhang, e.ten_nganhang, e.masothue " +
             "FROM Employee AS e WHERE e.manv = :employeeId ",nativeQuery = true)
     Employee findEmployeeByEmployeeId(@Param("employeeId") Long employeeId);
 
@@ -46,7 +46,7 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
                      "e.trinhdovanhoa,e.date_of_birth,e.ngaycap,e.trinhdohocvan,e.ngaykyhd,e.gioitinh," +
                      "e.quequan,e.socmnd,e.ngaycap_cmnd, e.noicap_cmnd ,e.ngayvaocongty,e.tinhtranghonnhan,e.dienthoai,e.noisinh," +
                      "e.noicap,e.chucvu,e.trinhdochuyenmon,e.moiquanhe,e.so_sobhxh," +
-                     "e.created_at,e.created_by,e.update_at,e.update_by,e.deleted,e.phongban_id, e.tinhtrang, e.note, e.stk_nganhang, e.ten_nganhang, e.masothue, e.noilamviec, e.ngaybatdau " +
+                     "e.created_at,e.created_by,e.update_at,e.update_by,e.deleted,e.phongban_id, e.tinhtrang, e.note, e.stk_nganhang, e.ten_nganhang, e.masothue " +
                      "FROM Employee AS e WHERE e.manv = :employeeId ",nativeQuery = true)
              Optional<Employee> findEmployeeByManv(@Param("employeeId") Long employeeId);
 

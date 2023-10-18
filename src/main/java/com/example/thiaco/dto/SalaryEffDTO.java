@@ -29,5 +29,7 @@ public class SalaryEffDTO {
 
     private Long employeeId;
 
+    private String name;
+
     private String area;
 }
