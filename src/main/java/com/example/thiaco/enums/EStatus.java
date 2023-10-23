@@ -13,7 +13,9 @@ public enum EStatus {
     CHINH_THUC("Chính thức"),
     THU_VIEC("Thử việc"),
     DAO_TAO("Đào tạo"),
-    THOI_VU("Thời vụ");
+    THOI_VU("Thời vụ"),
+    HUU_TRI("Hưu trí")
+    ;
 
     private String value;
 

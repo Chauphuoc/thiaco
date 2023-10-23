@@ -77,14 +77,14 @@ public class Employee extends BaseEntity {
     @Column(name = "noicap_cmnd", nullable = true)
     private String placeOfIssueCmnd;
 
-    @Column(name = "socccd",nullable = true,unique = true)
+    @Column(name = "socccd",nullable = true)
     private String citizenCardNumber;
     @Column(name = "ngaycap",nullable = true)
     private LocalDate dateOfIssue;
     @Column(name = "noicap",nullable = true)
     private String placeOfIssue;
     @ManyToOne
-    @JoinColumn(name = "phongban_id",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "phongban_id",referencedColumnName = "id",nullable = true)
     private Department department;
     @OneToOne(mappedBy = "employee")
     private LocationRegion locationRegion;

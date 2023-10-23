@@ -52,7 +52,6 @@ public class HistoryEmployeeAPI {
         for (String id : arrStrIds) {
             uniqueIds.add(id);
         }
-
         List<Long> arrIds = new ArrayList<>();
         for (String id : uniqueIds) {
             Long employeeId = Long.parseLong(id);

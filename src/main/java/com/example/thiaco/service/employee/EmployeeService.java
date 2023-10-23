@@ -31,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -221,7 +220,7 @@ public class EmployeeService implements IEmployeeService {
         employee.setEmployeeStatus(EStatus.getEStatus(employeeReqUpDTO.getEmployeeStatus()));
         employee.setDescription(employeeReqUpDTO.getDescription());
 
-        employee.setStkBank(employeeReqUpDTO.getSktBank());
+        employee.setStkBank(employeeReqUpDTO.getStkBank());
         employee.setNameBank(employeeReqUpDTO.getNameBank());
         employee.setMasothue(employeeReqUpDTO.getMasothue());
 

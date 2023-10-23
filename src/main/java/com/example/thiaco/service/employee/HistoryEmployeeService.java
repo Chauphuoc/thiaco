@@ -32,7 +32,7 @@ public class HistoryEmployeeService implements IHistoryEmployeeService {
 
     @Override
     public void delete(HistoryEmployee historyEmployee) {
-
+        historyEmployeeRepository.delete(historyEmployee);
     }
 
     @Override
