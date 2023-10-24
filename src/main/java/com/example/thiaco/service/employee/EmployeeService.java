@@ -188,10 +188,10 @@ public class EmployeeService implements IEmployeeService {
         employee.setSocialInsuranceNumber(employeeReqUpDTO.getSocialInsuranceNumber());
         employee.setPhoneNumber(employeeReqUpDTO.getPhoneNumber());
 
-        Employee checkedCmndEmployee = employeeRepository.findEmployeeByIdCardNumber(employeeReqUpDTO.getIdCardNumber());
-        if (checkedCmndEmployee != null && !checkedCmndEmployee.getId().equals(id)) {
-            throw new DataInputException("Cmnd đã bị trùng. Xin vui lòng nhập lại!");
-        }
+//        Employee checkedCmndEmployee = employeeRepository.findEmployeeByIdCardNumber(employeeReqUpDTO.getIdCardNumber());
+//        if (checkedCmndEmployee != null && !checkedCmndEmployee.getId().equals(id)) {
+//            throw new DataInputException("Cmnd đã bị trùng. Xin vui lòng nhập lại!");
+//        }
 
         if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfIssueCmnd())) {
             employee.setDateOfIssueCmnd(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssueCmnd()));

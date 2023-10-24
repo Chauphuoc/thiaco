@@ -50,28 +50,28 @@ public class EmployeeReqDTO   {
     @NotEmpty(message = "Ngày ký hợp đồng không được để trống")
     private String EmploymentContractDate;
 
-    @NotEmpty(message = "Tháng đóng bảo hiểm xã hội không được để trống")
+//    @NotEmpty(message = "Tháng đóng bảo hiểm xã hội không được để trống")
     private String SocialInsuranceMonth;
 
-    @NotEmpty(message = "Mối quan hệ không được để trống")
+//    @NotEmpty(message = "Mối quan hệ không được để trống")
     private String relationShip;
-    @NotEmpty(message = "Số sổ bảo hiểm không được để trống")
+//    @NotEmpty(message = "Số sổ bảo hiểm không được để trống")
     private String SocialInsuranceNumber;
     @NotEmpty(message = "Số điện thoại không được để trống")
     @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số gồm 10 hoặc 11 số")
     private String phoneNumber;
-    @NotEmpty(message = "Số CMND không được để trống")
-    @Pattern(regexp = "^\\d{9}$",message = "CMND phải là 9 số")
+//    @NotEmpty(message = "Số CMND không được để trống")
+//    @Pattern(regexp = "^\\d{9}$",message = "CMND phải là 9 số")
     private String idCardNumber;
 
-    @NotEmpty(message = "Ngày cấp CMND không được để trống")
+//    @NotEmpty(message = "Ngày cấp CMND không được để trống")
     private String dateOfIssueCmnd;
-    @NotEmpty(message = "Nơi cấp CMND không được để trống")
+//    @NotEmpty(message = "Nơi cấp CMND không được để trống")
     private String placeOfIssueCmnd;
 
 
     @NotEmpty(message = "CCCD không được để trống")
-    @Pattern(regexp = "^\\d{9,12}$",message = "CCCD phải là 12 số, CMND phải là 9 số")
+    @Pattern(regexp = "^\\d{12}$",message = "CCCD phải là 12 số")
     private String citizenCardNumber;
     @NotEmpty(message = "Ngày cấp CCCD không được để trống")
     private String dateOfIssue;
