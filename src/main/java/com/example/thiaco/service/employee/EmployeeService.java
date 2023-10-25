@@ -193,14 +193,17 @@ public class EmployeeService implements IEmployeeService {
 //            throw new DataInputException("Cmnd đã bị trùng. Xin vui lòng nhập lại!");
 //        }
 
-        if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfIssueCmnd())) {
+        if (employeeReqUpDTO.getDateOfIssueCmnd() == null || employeeReqUpDTO.getDateOfIssueCmnd() == "") {
+            employee.setDateOfIssueCmnd(null);
+        }
+        else if (Pattern.matches(dataPatternRegexddMMyyyy, employeeReqUpDTO.getDateOfIssueCmnd())) {
             employee.setDateOfIssueCmnd(convertStringToLocalDateImp(employeeReqUpDTO.getDateOfIssueCmnd()));
         } else {
             employee.setDateOfIssueCmnd(convertStringToLocalDate(employeeReqUpDTO.getDateOfIssueCmnd()));
         }
+
+
         employee.setPlaceOfIssueCmnd(employeeReqUpDTO.getPlaceOfIssueCmnd());
-
-
         employee.setIdCardNumber(employeeReqUpDTO.getIdCardNumber());
 
         Employee checkedCccdEmployee = employeeRepository.findEmployeeByCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
@@ -275,8 +278,6 @@ public class EmployeeService implements IEmployeeService {
         List<Employee> employeeList = employeeRepository.findEmployeesByDeletedIsFalse();
         return employeeList;
     }
-
-
 
     @Override
     public void importToDb(MultipartFile multipartfile) {
