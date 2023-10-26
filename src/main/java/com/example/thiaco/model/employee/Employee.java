@@ -2,7 +2,6 @@ package com.example.thiaco.model.employee;
 
 import com.example.thiaco.dto.EmployeeDTO;
 import com.example.thiaco.enums.EStatus;
-import com.example.thiaco.enums.Earea;
 import com.example.thiaco.model.BaseEntity;
 import com.example.thiaco.model.LocationRegion.LocationRegion;
 import com.example.thiaco.model.department.Department;
@@ -17,11 +16,7 @@ import lombok.experimental.Accessors;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -35,7 +30,7 @@ public class Employee extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "manv", nullable = false,unique = true)
-    private Long employee_id;
+    private String employee_id;
     @Column(name = "hovanten", nullable = false)
     private String fullName;
     @Column(name = "date_of_birth")
@@ -129,7 +124,7 @@ public class Employee extends BaseEntity {
                 .setEmployee_id(employee_id)
                 .setFullName(fullName)
                 .setLastName(employee.getLastName(employee.fullName))
-                .setDateOfBirth(EmployeeService.converLocalDateToString(dateOfBirth))
+                .setDateOfBirth(EmployeeService.convertLocalDateToString(dateOfBirth))
                 .setAge(employee.getAge())
                 .setGender(gender)
                 .setPlaceOfBirth(placeOfBirth)
@@ -139,20 +134,23 @@ public class Employee extends BaseEntity {
                 .setHomeTown(homeTown)
                 .setMaritalStatus(maritalStatus)
                 .setPosition(position)
-                .setJoiningday(EmployeeService.converLocalDateToString(joiningday))
-                .setEmploymentContractDate(EmployeeService.converLocalDateToString(employmentContractDate))
+                .setJoiningday(EmployeeService.convertLocalDateToString(joiningday))
+                .setEmploymentContractDate(EmployeeService.convertLocalDateToString(employmentContractDate))
                 .setSocialInsuranceMonth(socialInsuranceMonth)
                 .setRelationShip(relationShip)
                 .setSocialInsuranceNumber(socialInsuranceNumber)
                 .setPhoneNumber(phoneNumber)
                 .setIdCardNumber(idCardNumber)
 
-                .setDateOfIssueCmnd(dateOfIssueCmnd)
+
+                .setDateOfIssueCmnd(EmployeeService.checkConvertLocalDateToString(dateOfIssueCmnd))
+
+
                 .setPlaceOfIssueCmnd(placeOfIssueCmnd)
 
                 .setCitizenCardNumber(citizenCardNumber)
 
-                .setDateOfIssue(EmployeeService.converLocalDateToString(dateOfIssue))
+                .setDateOfIssue(EmployeeService.convertLocalDateToString(dateOfIssue))
                 .setPlaceOfIssue(placeOfIssue)
                 .setDepartmentDTO(department.toDepartmentDTO())
                 .setLocationRegionDTO(locationRegion.toLocationRegionDTO())

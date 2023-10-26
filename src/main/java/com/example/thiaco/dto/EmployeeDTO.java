@@ -22,7 +22,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class EmployeeDTO {
     private Long id;
-    private Long employee_id;
+    private String employee_id;
     private String fullName;
     private String lastName;
     private String dateOfBirth;
@@ -44,7 +44,7 @@ public class EmployeeDTO {
     private String phoneNumber;
     private String idCardNumber;
 
-    private LocalDate dateOfIssueCmnd;
+    private String dateOfIssueCmnd;
     private String placeOfIssueCmnd;
 
     private String citizenCardNumber;

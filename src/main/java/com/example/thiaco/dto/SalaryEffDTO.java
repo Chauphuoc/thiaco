@@ -27,7 +27,7 @@ public class SalaryEffDTO {
     @Pattern(regexp = "^-?\\d+(\\.\\d+)?$",message = "Hệ số lương không đúng định dạng.")
     private BigDecimal salaryEfficientAmount;
 
-    private Long employeeId;
+    private String employeeId;
 
     private String name;
 

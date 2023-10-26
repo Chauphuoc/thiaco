@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface HistoryEmployeeRepository extends JpaRepository<HistoryEmployee, Long> {
-    List<HistoryEmployee> findHistoryEmployeesByEmployeeId(Long manv);
+    List<HistoryEmployee> findHistoryEmployeesByEmployeeId(String manv);
 }

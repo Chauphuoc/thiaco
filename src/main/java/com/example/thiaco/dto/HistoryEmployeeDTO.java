@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class HistoryEmployeeDTO {
 
     private Long id;
-    private Long employee_id;
+    private String employee_id;
     private String fullName;
     private LocalDate dateOfBirth;
     private String gender;

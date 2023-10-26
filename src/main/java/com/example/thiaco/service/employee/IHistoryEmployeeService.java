@@ -6,5 +6,5 @@ import com.example.thiaco.service.IGeneralService;
 import java.util.List;
 
 public interface IHistoryEmployeeService extends IGeneralService<HistoryEmployee,Long> {
-    List<HistoryEmployee> findHistoryEmployeesByEmployee_id(Long manv);
+    List<HistoryEmployee> findHistoryEmployeesByEmployee_id(String manv);
 }

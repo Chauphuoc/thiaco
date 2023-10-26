@@ -29,7 +29,7 @@ public class HistoryEmployee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "manv", nullable = false)
-    private Long employeeId;
+    private String employeeId;
     @Column(name = "hovanten", nullable = false)
     private String fullName;
     @Column(name = "date_of_birth")

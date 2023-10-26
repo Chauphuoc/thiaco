@@ -59,7 +59,8 @@ public class SalaryEffServiceImp implements ISalaryEffService{
         salaryCoEfficient.setYear(request.getYear());
         salaryCoEfficient.setSalaryEfficientAmount(request.getSalaryEfficientAmount());
 
-        Long employeeId = Long.parseLong(request.getEmployeeId()) ;
+//        Long employeeId = Long.parseLong(request.getEmployeeId()) ;
+        String employeeId = request.getEmployeeId();
         Optional<Employee> employeeOptional = employeeRepository.findEmployeeByManv(employeeId);
         if (!employeeOptional.isPresent()) {
             throw new DataInputException("Không tìm thấy nhân viên! Xin vui lòng nhập lại mã nhân viên!");

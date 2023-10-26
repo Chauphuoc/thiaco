@@ -17,10 +17,9 @@ import java.util.Date;
 @AllArgsConstructor
 public class EmployeeReqDTO   {
     private Long id;
-    @NotNull(message = "Mã nhân viên không được để trống")
-    @Min(value = 1000,message = "Mã nhân viên phải lớn hơn hoặc bằng 1000")
-    @Max(value = 9999,message = "Mã nhân viên phải bé hơn hoặc bằng 9999")
-    private Long employee_id;
+    @NotEmpty(message = "Mã nhân viên không được để trống")
+    @Size(min = 4, max = 4, message = "Mã nhân viên phải có độ dài 4 ký tự")
+    private String employee_id;
 
     @NotEmpty(message = "Họ và tên không được bỏ trống")
     @Pattern(regexp = "^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$",message = "Họ và tên không đúng định dạng")

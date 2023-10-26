@@ -35,7 +35,7 @@ public class HistoryEmployeeAPI {
 //    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAllHistory(@PathVariable Long id) {
+    public ResponseEntity<?> getAllHistory(@PathVariable String id) {
         Optional<Employee> employeeOptional = employeeService.findEmployeeByManv(id);
         if (!employeeOptional.isPresent()) {
             throw new DataInputException("Mã nhân viên không đúng. Xin vui lòng kiểm tra lại");

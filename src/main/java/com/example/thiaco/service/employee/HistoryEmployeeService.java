@@ -42,7 +42,7 @@ public class HistoryEmployeeService implements IHistoryEmployeeService {
 
 
     @Override
-    public List<HistoryEmployee> findHistoryEmployeesByEmployee_id(Long manv) {
+    public List<HistoryEmployee> findHistoryEmployeesByEmployee_id(String manv) {
         return historyEmployeeRepository.findHistoryEmployeesByEmployeeId(manv);
     }
 }

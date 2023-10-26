@@ -22,8 +22,8 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
 
      Employee findEmployeeById(Long id);
 
-    Optional<Employee> findEmployeeByManv( Long employeeId);
-    Employee findEmployeeByEmployeeId(Long employeeId);
+    Optional<Employee> findEmployeeByManv(String employeeId);
+    Employee findEmployeeByEmployeeId(String employeeId);
     Employee update(Long id,EmployeeReqUpDTO employeeReqDTO);
 
     List<Employee> deleteEmployee(Employee employee);
@@ -32,9 +32,9 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
 
     void exportToExcel(HttpServletResponse response) throws IOException;
 
-    Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable);
+//    Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable);
 
-    int existsByEmployee_id(Long employeeId);
+    int existsByEmployee_id(String employeeId);
 
     int existsByCccd(String cccd);
 

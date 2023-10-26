@@ -1,7 +1,6 @@
 package com.example.thiaco.service.employee;
 
 import com.example.thiaco.dto.EmployeeReqUpDTO;
-import com.example.thiaco.dto.EmployeeResDTO;
 import com.example.thiaco.enums.EStatus;
 import com.example.thiaco.exception.DataInputException;
 import com.example.thiaco.exception.ResourceNotFoundException;
@@ -23,8 +22,6 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -99,12 +96,12 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Optional<Employee> findEmployeeByManv(Long employeeId) {
+    public Optional<Employee> findEmployeeByManv(String employeeId) {
         return employeeRepository.findEmployeeByManv(employeeId);
     }
 
     @Override
-    public Employee findEmployeeByEmployeeId(Long employeeId) {
+    public Employee findEmployeeByEmployeeId(String employeeId) {
         return employeeRepository.findEmployeeByEmployeeId(employeeId);
     }
     @Override
@@ -292,7 +289,7 @@ public class EmployeeService implements IEmployeeService {
                         continue;
                     }
                     //Lấy dữ liệu
-                    Long employee_id = Long.parseLong(String.valueOf(getValue(row.getCell(0))));
+                    String employee_id = String.valueOf(getValue(row.getCell(0)));
                     String fullName = String.valueOf(getValue(row.getCell(1)));
                     String dateOfBirth = String.valueOf(getValue(row.getCell(2)));
                     String gender = String.valueOf(getValue(row.getCell(3)));
@@ -360,8 +357,12 @@ public class EmployeeService implements IEmployeeService {
                     employee.setPhoneNumber(phoneNumber);
                     employee.setIdCardNumber(idCardNumber);
 
+                    if (dayOfIssueCmnd == "" || dayOfIssueCmnd == null || dayOfIssueCmnd.isEmpty()) {
+                        employee.setDateOfIssueCmnd(null);
+                    } else {
+                        employee.setDateOfIssueCmnd(EmployeeService.convertStringToLocalDateImp(dayOfIssueCmnd));
+                    }
 
-                    employee.setDateOfIssueCmnd(EmployeeService.convertStringToLocalDateImp(dayOfIssueCmnd));
 
 
                     employee.setPlaceOfIssueCmnd(placeOfIssueCmnd);
@@ -460,9 +461,18 @@ public class EmployeeService implements IEmployeeService {
         return LocalDate.parse(str, formatter);
     }
 
-    public static String converLocalDateToString(LocalDate date) {
+    public static String convertLocalDateToString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return date.format(formatter);
+    }
+
+    public static String checkConvertLocalDateToString(LocalDate date) {
+        if (date == null) {
+            return "";
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return date.format(formatter);
+        }
     }
 
 
@@ -482,15 +492,15 @@ public class EmployeeService implements IEmployeeService {
     }
 
 
-    @Override
-    public Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable) {
+//    @Override
+//    public Page<EmployeeResDTO> getEmployeesByDeletedIsFalse(Pageable pageable) {
+//
+//        Page<EmployeeResDTO> employees = employeeRepository.getEmployeesByDeletedIsFalse(pageable);
+//        return employees;
+//    }
 
-        Page<EmployeeResDTO> employees = employeeRepository.getEmployeesByDeletedIsFalse(pageable);
-        return employees;
-    }
-
     @Override
-    public int existsByEmployee_id(Long employeeId) {
+    public int existsByEmployee_id(String employeeId) {
         return employeeRepository.existsByEmployee_id(employeeId);
     }
 
