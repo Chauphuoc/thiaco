@@ -363,16 +363,9 @@ public class EmployeeService implements IEmployeeService {
                         employee.setDateOfIssueCmnd(EmployeeService.convertStringToLocalDateImp(dayOfIssueCmnd));
                     }
 
-
-
                     employee.setPlaceOfIssueCmnd(placeOfIssueCmnd);
-
                     employee.setCitizenCardNumber(citizenCardNumber);
-
                     employee.setDateOfIssue(EmployeeService.convertStringToLocalDateImp(dateOfIssue));
-
-
-
                     employee.setPlaceOfIssue(placeOfIssue);
                     employee.setEmployeeStatus(EStatus.getEStatus(status));
                     employee.setDescription(description);

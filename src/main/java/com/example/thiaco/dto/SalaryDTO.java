@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 public class SalaryDTO {
 
     private Long id;
-    private BigDecimal yearOfWork;
+    private String yearOfWork;
 
     private BigDecimal salaryAmount;
 

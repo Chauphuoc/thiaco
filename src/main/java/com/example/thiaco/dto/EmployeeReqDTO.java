@@ -60,7 +60,7 @@ public class EmployeeReqDTO   {
     @Pattern(regexp = "^\\d{10,11}$",message = "Số điện thoại phải là số gồm 10 hoặc 11 số")
     private String phoneNumber;
 //    @NotEmpty(message = "Số CMND không được để trống")
-//    @Pattern(regexp = "^\\d{9}$",message = "CMND phải là 9 số")
+    @Pattern(regexp = "^(?:\\d{9})?$",message = "CMND phải là 9 số")
     private String idCardNumber;
 
 //    @NotEmpty(message = "Ngày cấp CMND không được để trống")

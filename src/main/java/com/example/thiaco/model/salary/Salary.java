@@ -67,7 +67,7 @@ public class Salary extends BaseEntity
     public SalaryDTO toSalaryDTO(Salary salary) {
         return new SalaryDTO()
                 .setId(id)
-                .setYearOfWork(salary.getYearOfWork(employee.getEmploymentContractDate()))
+                .setYearOfWork(salary.getYearOfWork(employee.getEmploymentContractDate()).toString())
                 .setSalaryAmount(salaryAmount)
                 .setSalaryCoEfficient(salaryCoEfficient)
                 .setOtherDetails(otherDetails)
