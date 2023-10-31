@@ -43,4 +43,6 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     Employee findEmployeeByCitizenCardNumber(String cccd);
 
     Employee findEmployeeByCitizenCardNumberAndDeletedIsFalse(String cccd);
+
+    void importUploadSalaryToDb(MultipartFile multipartfile);
 }

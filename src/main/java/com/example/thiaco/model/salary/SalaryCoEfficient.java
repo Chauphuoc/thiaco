@@ -42,8 +42,8 @@ public class SalaryCoEfficient extends BaseEntity {
     private Employee employee;
 
     @Column(name = "vungluong")
-    @Enumerated(EnumType.STRING)
-    private Earea earea;
+//    @Enumerated(EnumType.STRING)
+    private String area;
 
     public SalaryEffDTO toSalaryEffDTO() {
         return new SalaryEffDTO()
@@ -52,7 +52,7 @@ public class SalaryCoEfficient extends BaseEntity {
                 .setSalaryEfficientAmount(salaryEfficientAmount)
                 .setEmployeeId(employee.getEmployee_id())
                 .setName(employee.getFullName())
-                .setArea(earea.getValue())
+                .setArea(area)
                 ;
     }
 }

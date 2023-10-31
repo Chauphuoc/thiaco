@@ -409,6 +409,41 @@ public class EmployeeService implements IEmployeeService {
         }
     }
 
+    @Override
+    public void importUploadSalaryToDb(MultipartFile multipartfile) {
+        if (!multipartfile.isEmpty()) {
+
+            try {
+                XSSFWorkbook workbook = new XSSFWorkbook(multipartfile.getInputStream());
+                XSSFSheet sheet = workbook.getSheetAt(0);
+                for (int rowIndex = 0; rowIndex < getNumberOfNonEmptyCells(sheet, 0); rowIndex++) {
+                    XSSFRow row = sheet.getRow(rowIndex);
+                    if (rowIndex == 0) {
+                        continue;
+                    }
+                    //Lấy dữ liệu
+                    String employee_id = String.valueOf(getValue(row.getCell(0)));
+                    String basicSalary = String.valueOf(getValue(row.getCell(1)));
+                    String coEff = String.valueOf(getValue(row.getCell(2)));
+                    String total = String.valueOf(getValue(row.getCell(3)));
+
+                    Employee currentEmployee = employeeRepository.findEmployeeByEmployeeId(employee_id);
+                    Salary salary = salaryRepository.findSalaryByEmployee(currentEmployee);
+                    salary.setBasicSalary(BigDecimal.valueOf(Double.valueOf(basicSalary)));
+                    salary.setSalaryCoEfficient(BigDecimal.valueOf(Double.valueOf(coEff)));
+                    salary.setSalaryAmount(BigDecimal.valueOf(Double.valueOf(total)));
+                    salaryRepository.save(salary);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//            if (!employees.isEmpty()) {
+//                employeeRepository.saveAll(employees);
+//            }
+        }
+    }
+
 
 //  Đếm kể cả thanh tiêu đề
     public static int getNumberOfNonEmptyCells(XSSFSheet sheet, int columnIndex) {

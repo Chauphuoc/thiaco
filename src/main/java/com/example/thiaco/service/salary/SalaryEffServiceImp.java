@@ -68,8 +68,7 @@ public class SalaryEffServiceImp implements ISalaryEffService{
             Employee employee = employeeOptional.get();
             salaryCoEfficient.setEmployee(employee);
         }
-        salaryCoEfficient.setEarea(Earea.getArea(request.getArea()));
-
+        salaryCoEfficient.setArea(request.getArea());
         salaryCoEffRepository.save(salaryCoEfficient);
 
     }
