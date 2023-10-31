@@ -15,17 +15,15 @@ import lombok.Setter;
 public class EmployeeReqUpDTO {
     private Long id;
     @NotEmpty(message = "Mã nhân viên không được để trống")
-    @Size(min = 4, max = 4, message = "Mã nhân viên phải có độ dài 4 ký tự")
+    @Size(min = 4, max = 5, message = "Mã nhân viên phải có độ dài 4,5 ký tự")
     private String employee_id;
     @NotEmpty(message = "Họ và tên không được bỏ trống")
     @Pattern(regexp = "^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$",message = "Họ và tên không đúng định dạng")
     private String fullName;
-
     @NotEmpty(message = "Ngày sinh không được để trống")
     private String dateOfBirth;
     @NotEmpty(message = "Giới tính không được để trống")
     private String gender;
-
     @NotEmpty(message = "Nơi sinh không được để trống")
     private String placeOfBirth;
     @NotEmpty(message = "Trình độ chuyên môn không được để trống")

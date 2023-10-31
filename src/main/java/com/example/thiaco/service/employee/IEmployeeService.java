@@ -39,4 +39,8 @@ public interface IEmployeeService extends IGeneralService<Employee,Long> {
     int existsByCccd(String cccd);
 
     int existsByCmnd(String cmnd);
+
+    Employee findEmployeeByCitizenCardNumber(String cccd);
+
+    Employee findEmployeeByCitizenCardNumberAndDeletedIsFalse(String cccd);
 }

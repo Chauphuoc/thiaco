@@ -203,7 +203,7 @@ public class EmployeeService implements IEmployeeService {
         employee.setPlaceOfIssueCmnd(employeeReqUpDTO.getPlaceOfIssueCmnd());
         employee.setIdCardNumber(employeeReqUpDTO.getIdCardNumber());
 
-        Employee checkedCccdEmployee = employeeRepository.findEmployeeByCitizenCardNumber(employeeReqUpDTO.getCitizenCardNumber());
+        Employee checkedCccdEmployee = employeeRepository.findEmployeeByCitizenCardNumberAndDeletedIsFalse(employeeReqUpDTO.getCitizenCardNumber());
         if (checkedCccdEmployee != null && !checkedCccdEmployee.getId().equals(id)) {
             throw new DataInputException("Cccd đã bị trùng. Xin vui lòng nhập lại!");
         }
@@ -223,7 +223,6 @@ public class EmployeeService implements IEmployeeService {
         employee.setStkBank(employeeReqUpDTO.getStkBank());
         employee.setNameBank(employeeReqUpDTO.getNameBank());
         employee.setMasothue(employeeReqUpDTO.getMasothue());
-
 
 
         Optional<Department> departmentOptional = departmentRepository.findById(employeeReqUpDTO.getDepartmentDTO().getId());
@@ -275,6 +274,8 @@ public class EmployeeService implements IEmployeeService {
         List<Employee> employeeList = employeeRepository.findEmployeesByDeletedIsFalse();
         return employeeList;
     }
+
+
 
     @Override
     public void importToDb(MultipartFile multipartfile) {
@@ -505,6 +506,16 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public int existsByCmnd(String cmnd) {
         return employeeRepository.existsByCmnd(cmnd);
+    }
+
+    @Override
+    public Employee findEmployeeByCitizenCardNumber(String cccd) {
+        return employeeRepository.findEmployeeByCitizenCardNumber(cccd);
+    }
+
+    @Override
+    public Employee findEmployeeByCitizenCardNumberAndDeletedIsFalse(String cccd) {
+        return employeeRepository.findEmployeeByCitizenCardNumberAndDeletedIsFalse(cccd);
     }
 
 

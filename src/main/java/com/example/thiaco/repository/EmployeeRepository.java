@@ -56,12 +56,14 @@ public interface EmployeeRepository  extends JpaRepository<Employee, Long>, JpaS
     @Query("SELECT count(e.citizenCardNumber) FROM Employee AS e WHERE e.citizenCardNumber = :cccd")
     int existsByCccd(String cccd);
 
-    @Query("SELECT count(e.idCardNumber) FROM Employee AS e WHERE e.idCardNumber = :cmnd")
+    @Query("SELECT count(e.idCardNumber) FROM Employee AS e WHERE e.idCardNumber = :cmnd  ")
     int existsByCmnd(String cmnd);
 
     Employee findEmployeeByIdCardNumber(String cmnd);
 
     Employee findEmployeeByCitizenCardNumber(String cccd);
 
+
+    Employee findEmployeeByCitizenCardNumberAndDeletedIsFalse(String cccd);
 
 }

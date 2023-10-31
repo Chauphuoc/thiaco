@@ -18,7 +18,7 @@ import java.util.Date;
 public class EmployeeReqDTO   {
     private Long id;
     @NotEmpty(message = "Mã nhân viên không được để trống")
-    @Size(min = 4, max = 4, message = "Mã nhân viên phải có độ dài 4 ký tự")
+    @Size(min = 4, max = 5, message = "Mã nhân viên phải có độ dài 4, 5 ký tự")
     private String employee_id;
 
     @NotEmpty(message = "Họ và tên không được bỏ trống")
